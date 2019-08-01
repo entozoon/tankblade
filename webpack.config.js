@@ -1,7 +1,7 @@
 "use strict";
 const webpack = require("webpack"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
-  CleanWebpackPlugin = require("clean-webpack-plugin"),
+  { CleanWebpackPlugin } = require("clean-webpack-plugin"),
   CopyWebpackPlugin = require("copy-webpack-plugin"),
   path = require("path");
 module.exports = {
@@ -18,7 +18,8 @@ module.exports = {
     contentBase: "./build"
   },
   plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, "build")]),
+    // new CleanWebpackPlugin([path.resolve(__dirname, "build")]),
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin([{ from: "static" }]),
     new HtmlWebpackPlugin({
       template: "static/index.html"

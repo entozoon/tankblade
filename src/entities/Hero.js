@@ -40,14 +40,14 @@ export default class {
               {
                 x: 0,
                 y: 0,
-                width: 106,
-                height: 106
+                width: 128,
+                height: 128
               },
               {
-                x: 106,
+                x: 128,
                 y: 0,
-                width: 106,
-                height: 106
+                width: 128,
+                height: 128
               }
             ]
           }

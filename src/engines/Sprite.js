@@ -19,7 +19,7 @@ export default class {
     // Optimisation, push them all through Pixi.loader, like item assets did. Not sure how worthwhile it is in reality
     // Init - show first frame
     this.sprite = new Pixi.Sprite(this.poses[0].frames[0].texture);
-    this.sprite.scale = { x: 0.25, y: 0.25 };
+    this.sprite.scale = { x: 0.2, y: 0.2 };
     // I should have done this from the start,
     // maybe avoiding having to offset sprites at all:
     this.sprite.anchor = { x: 0.5, y: 0.5 };

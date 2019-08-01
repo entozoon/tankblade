@@ -80,9 +80,9 @@ export default class {
         ]
       }),
       new Mover({
-        thrustPower: 0.05,
-        thrustLimit: 1,
-        decelerationSpeed: 0.1,
+        thrustPower: 0.15,
+        thrustLimit: 1.5,
+        decelerationSpeed: 0.3,
         minThrust: 0.01
       }),
       new Controllable()
@@ -117,5 +117,6 @@ export default class {
         : 0
     });
     this.move();
+    this.bounce();
   }
 }

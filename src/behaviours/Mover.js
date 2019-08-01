@@ -13,6 +13,7 @@ export default class {
     // Expose functions
     this.setThrust = this.setThrust;
     this.move = this.move;
+    this.bounce = this.bounce;
 
     // This needs a proper DT value throwing around..
     this.dt = 0.1;
@@ -52,5 +53,16 @@ export default class {
       this.thrust.x > -this.minThrust && this.thrust.x < this.minThrust
         ? 0
         : this.thrust.x;
+  }
+  bounce() {
+    const nudge = this.thrustPower * 2,
+      offsetY = 3,
+      offsetX = 6;
+    if (this.position.y < offsetY || this.position.y > 64 - offsetY)
+      this.thrust.y =
+        -Math.sign(this.thrust.y) * (Math.abs(this.thrust.y) + nudge);
+    if (this.position.x < offsetX || this.position.x > 64 - offsetX)
+      this.thrust.x =
+        -Math.sign(this.thrust.x) * (Math.abs(this.thrust.x) + nudge);
   }
 }

@@ -4,7 +4,9 @@ class Pixi {
   constructor() {
     Object.assign(this, PIXI);
 
-    this.renderer = this.autoDetectRenderer(64, 64, {
+    this.renderer = this.autoDetectRenderer({
+      width: 64,
+      height: 64,
       antialias: false,
       transparent: false,
       resolution: 1,

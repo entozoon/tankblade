@@ -2,6 +2,7 @@
 const webpack = require("webpack"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
   CleanWebpackPlugin = require("clean-webpack-plugin"),
+  CopyWebpackPlugin = require("copy-webpack-plugin"),
   path = require("path");
 module.exports = {
   entry: "./src/main.js",
@@ -18,6 +19,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin([path.resolve(__dirname, "build")]),
+    new CopyWebpackPlugin([{ from: "static" }]),
     new HtmlWebpackPlugin({
       template: "static/index.html"
     })

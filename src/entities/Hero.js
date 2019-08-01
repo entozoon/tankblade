@@ -35,7 +35,7 @@ export default class {
         poses: [
           {
             name: "default",
-            interval: 100,
+            interval: 50, // dig dooowwwwn
             frames: [
               {
                 x: 0,

@@ -10,7 +10,7 @@ class Pixi {
       antialias: false,
       transparent: false,
       resolution: 1,
-      backgroundColor: 0x2c2b30
+      backgroundColor: 0x222222
     });
 
     // Sack antialiasing off with renderer settings and CSS

@@ -30,6 +30,7 @@ export default class {
     // Assign this function to itself, to expose it when being composed by Object.assign (seems redundant, but only shit in constructor gets passed up - i.e. no getters/setters)
     this.pose = this.pose;
     this.getPoseFromPoses = this.getPoseFromPoses;
+    this.setSpriteY = this.setSpriteY;
   }
 
   // get position() {
@@ -94,9 +95,10 @@ export default class {
     }
   }
 
-  // set y(value) {
-  //   this.sprite.position.y = value;
-  // }
+  setSpriteY(value) {
+    console.log("setSpriteY", value);
+    this.sprite.position.y = value;
+  }
   // set x(value) {
   //   this.sprite.position.x = value;
   // }

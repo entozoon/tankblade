@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
-    "start": "webpack-dev-server --mode=development --open",
-    "predeploy": "npm run build",
-    "deploy": "git add docs/* && git commit -m \"Deploy\" && git push"
+    "start": "webpack-dev-server --mode=development --open"
   },
   "repository": {
     "type": "git",

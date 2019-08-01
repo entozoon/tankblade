@@ -10,14 +10,14 @@ module.exports = {
   },
   devtool: "inline-source-map",
   output: {
-    path: path.resolve(__dirname, "docs"),
+    path: path.resolve(__dirname, "build"),
     filename: "bundle.js"
   },
   devServer: {
-    contentBase: "./docs"
+    contentBase: "./build"
   },
   plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, "docs")]),
+    new CleanWebpackPlugin([path.resolve(__dirname, "build")]),
     new HtmlWebpackPlugin({
       template: "static/index.html"
     })

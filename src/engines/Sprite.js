@@ -2,9 +2,7 @@ import Pixi from "../engines/Pixi";
 
 export default class {
   constructor({ spriteSheet, poses }) {
-    this.spriteSheetTexture = new Pixi.Texture.fromImage(
-      spriteSheet
-    ).baseTexture;
+    this.spriteSheetTexture = new Pixi.Texture.from(spriteSheet).baseTexture;
     // // this.hero = hero;
     // this.velocity = velocity || { x: 0, y: 0 };
     // this.adrenaline = adrenaline || 0;

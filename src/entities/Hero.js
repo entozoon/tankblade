@@ -35,7 +35,7 @@ export default class {
         poses: [
           {
             name: "default",
-            interval: 150,
+            interval: 100,
             frames: [
               {
                 x: 0,
@@ -51,6 +51,12 @@ export default class {
               },
               {
                 x: 36,
+                y: 0,
+                width: 18,
+                height: 15
+              },
+              {
+                x: 54,
                 y: 0,
                 width: 18,
                 height: 15

@@ -1,26 +1,68 @@
-import Pixi from "../engines/Pixi";
+// import Pixi from "../engines/Pixi";
 import Sprite from "../engines/Sprite";
-import Entity from "../engines/Entity";
+// import Entity from "../engines/Entity";
 
-export default class extends Entity {
+// class Mover {
+//   constructor() {
+//     this.thing = this.thing;
+//     this.x = this.x;
+
+//     Object.defineProperty(this, "status", {
+//       set: x => this._x * 3
+//     });
+//   }
+//   set x(x) {
+//     this._x = x * 2;
+//   }
+//   get x() {
+//     return this._x;
+//   }
+//   thing() {
+//     console.log("thinging");
+//   }
+// }
+
+export default class {
+  // export default class extends Entity {
   constructor() {
-    super();
+    // super();
 
-    this.x = 2;
+    // Object.assign(this, new Mover());
+    Object.assign(
+      this,
+      new Sprite({
+        spriteSheet: "hero.png",
+        poses: [
+          {
+            name: "default",
+            interval: 150,
+            frames: [
+              {
+                x: 0,
+                y: 0,
+                width: 106,
+                height: 106
+              },
+              {
+                x: 106,
+                y: 0,
+                width: 106,
+                height: 106
+              }
+            ]
+          }
+        ]
+      })
+    );
 
-    console.log(this.x);
+    // what I probs wanna do is, every time it sets x, it also sets this.sprite.x
 
     this.position = {
-      x: 300,
-      y: 300
+      x: 0,
+      y: 0
     };
-    const basicText = new PIXI.Text("Created a ghoul", {
-      fill: "#dddddd"
-    });
-    basicText.x = 30;
-    basicText.y = 150;
-    Pixi.stage.addChild(basicText);
-    Pixi.render();
+
+    this.pose("default");
   }
-  render() {}
+  update() {}
 }

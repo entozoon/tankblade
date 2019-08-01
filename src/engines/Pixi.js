@@ -4,7 +4,7 @@ class Pixi {
   constructor() {
     Object.assign(this, PIXI);
 
-    this.renderer = this.autoDetectRenderer(600, 400, {
+    this.renderer = this.autoDetectRenderer(64, 64, {
       antialias: false,
       transparent: false,
       resolution: 1,
@@ -22,9 +22,6 @@ class Pixi {
   render() {
     // Re-render the main stage
     this.renderer.render(this.stage);
-  }
-  foo() {
-    return "bar";
   }
 }
 

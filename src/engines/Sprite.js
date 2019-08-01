@@ -1,60 +1,58 @@
 import Pixi from "../engines/Pixi";
 
 export default class {
-  constructor(options) {
-    this.spriteSheetTexture = new Pixi.engine.Texture.fromImage(
-      options.spriteSheet
+  constructor({ spriteSheet, poses }) {
+    this.spriteSheetTexture = new Pixi.Texture.fromImage(
+      spriteSheet
     ).baseTexture;
-
-    this.poses = options.poses;
-    // this.hero = options.hero;
-    this.velocity = options.velocity || { x: 0, y: 0 };
-    this.adrenaline = options.adrenaline || 0;
-
-    // Create texture for each frame
-    this.poses = this.poses.map(pose => {
+    // // this.hero = hero;
+    // this.velocity = velocity || { x: 0, y: 0 };
+    // this.adrenaline = adrenaline || 0;
+    // // Create texture for each frame
+    this.poses = poses.map(pose => {
       pose.frames = pose.frames.map(frame => {
-        frame.texture = new Pixi.engine.Texture(this.spriteSheetTexture, frame);
+        frame.texture = new Pixi.Texture(this.spriteSheetTexture, frame);
         return frame;
       });
       return pose;
     });
-
-    // Optimisation, push them all through Pixi.engine.loader, like item assets did. Not sure how worthwhile it is in reality
-
+    // Optimisation, push them all through Pixi.loader, like item assets did. Not sure how worthwhile it is in reality
     // Init - show first frame
-    this.sprite = new Pixi.engine.Sprite(this.poses[0].frames[0].texture);
-    this.sprite.scale = { x: 2, y: 2 };
-
+    this.sprite = new Pixi.Sprite(this.poses[0].frames[0].texture);
+    this.sprite.scale = { x: 0.25, y: 0.25 };
     // I should have done this from the start,
     // maybe avoiding having to offset sprites at all:
     this.sprite.anchor = { x: 0.5, y: 0.5 };
-
     this.spriteInterval;
+    Pixi.stage.addChild(this.sprite);
 
-    Pixi.app.stage.addChild(this.sprite);
+    this.sprite.position = { x: 32, y: 32 };
+
+    // Assign this function to itself, to expose it when being composed by Object.assign (seems redundant, but only shit in constructor gets passed up - i.e. no getters/setters)
+    this.pose = this.pose;
+    this.getPoseFromPoses = this.getPoseFromPoses;
   }
 
-  get position() {
-    return this.sprite.position;
-  }
-  set position(position) {
-    this.sprite.position = position;
-  }
-  get width() {
-    return this.sprite.width;
-  }
-  get height() {
-    return this.sprite.height;
-  }
+  // get position() {
+  //   return this.sprite.position;
+  // }
+  // set position(position) {
+  //   this.sprite.position = position;
+  // }
+  // get width() {
+  //   return this.sprite.width;
+  // }
+  // get height() {
+  //   return this.sprite.height;
+  // }
   getPoseFromPoses(pose) {
     return this.poses.filter(_ => _.name === pose)[0];
   }
-  get pose() {
-    return this._pose;
-  }
+  // get pose() {
+  //   return this._pose;
+  // }
 
-  set pose(pose) {
+  pose(pose) {
     // First frame
     let thisPose = this.getPoseFromPoses(pose);
 
@@ -63,7 +61,6 @@ export default class {
     if (pose === this.pose) {
       return;
     }
-
     this._pose = pose; // e.g. 'run'
 
     // frame 0
@@ -98,10 +95,10 @@ export default class {
     }
   }
 
-  set y(value) {
-    this.sprite.position.y = value;
-  }
-  set x(value) {
-    this.sprite.position.x = value;
-  }
+  // set y(value) {
+  //   this.sprite.position.y = value;
+  // }
+  // set x(value) {
+  //   this.sprite.position.x = value;
+  // }
 }

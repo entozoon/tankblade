@@ -31,6 +31,12 @@ export default class {
     this.pose = this.pose;
     this.getPoseFromPoses = this.getPoseFromPoses;
     this.setSpriteY = this.setSpriteY;
+
+    this.setPosition = this.setPosition;
+  }
+
+  setPosition(position) {
+    this.sprite.position = position;
   }
 
   // get position() {

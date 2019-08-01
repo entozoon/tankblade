@@ -1,14 +1,7 @@
 // import Pixi from "../engines/Pixi";
 import Sprite from "../engines/Sprite";
+import Mover from "../behaviours/Mover";
 // import Entity from "../engines/Entity";
-
-class Mover {
-  constructor() {
-    this.x = 10;
-    this.y = 11;
-    console.log("mover", this.y, this.x);
-  }
-}
 
 class Controllable {
   constructor() {
@@ -86,32 +79,43 @@ export default class {
           }
         ]
       }),
-      new Mover(),
+      new Mover({
+        thrustPower: 0.05,
+        thrustLimit: 1,
+        decelerationSpeed: 0.1,
+        minThrust: 0.01
+      }),
       new Controllable()
     );
 
     this.pose("default");
 
     this.constructed = true;
-    console.log("ready", this.y, this.x);
+    // console.log("ready", this.y, this.x);
   }
-  set y(y) {
-    console.log("set", y, this.x);
-    this._y = y;
-    this.setSpriteY(y);
-  }
-  get y() {
-    return this._y;
-  }
+  // set y(y) {
+  //   console.log("set", y, this.x);
+  //   this._y = y;
+  //   this.setSpriteY(y);
+  // }
+  // get y() {
+  //   return this._y;
+  // }
   update() {
     if (!this.constructed) return;
-    if (this.keyMatrix.up) {
-      // this.position.y -= 1;
-      // let position = this.position;
-      // position.y -= 1;
-      console.log("keym", this.y, this.x, this);
-      // this.position = position;
-      this.y -= 0.1;
-    }
+
+    this.setThrust({
+      y: this.keyMatrix.up
+        ? -this.thrustPower
+        : this.keyMatrix.down
+        ? this.thrustPower
+        : 0,
+      x: this.keyMatrix.left
+        ? -this.thrustPower
+        : this.keyMatrix.right
+        ? this.thrustPower
+        : 0
+    });
+    this.move();
   }
 }

@@ -20,6 +20,10 @@ class Pixi {
     document.getElementById("game").appendChild(this.renderer.view);
 
     this.stage = new PIXI.Container();
+
+    // Background
+    const bg = new PIXI.Sprite(new PIXI.Texture.from("bg.png"));
+    this.stage.addChild(bg);
   }
   render() {
     // Re-render the main stage

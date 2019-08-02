@@ -19,10 +19,25 @@ export default class {
     document.addEventListener("keyup", e => {
       this.keypress(e);
     });
+    this.controllableUpdate = this.controllableUpdate;
+  }
+  controllableUpdate() {
+    this.setThrust({
+      y: this.keyMatrix.up
+        ? -this.thrustPower
+        : this.keyMatrix.down
+        ? this.thrustPower
+        : 0,
+      x: this.keyMatrix.left
+        ? -this.thrustPower
+        : this.keyMatrix.right
+        ? this.thrustPower
+        : 0
+    });
   }
   keypress(e) {
-    e.preventDefault();
     if (this.keyCodes[e.keyCode]) {
+      e.preventDefault();
       if (this.keyMatrix[this.keyCodes[e.keyCode]] !== (e.type === "keydown")) {
         this.keyMatrix[this.keyCodes[e.keyCode]] = e.type === "keydown";
         // Significant interaction moment. Don't.. don't worry about ^this code; hard braindump

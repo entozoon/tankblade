@@ -6,35 +6,23 @@ export default class {
     Object.assign(
       this,
       new Sprite({
-        spriteSheet: "hero.png",
+        spriteSheet: "ghoul.png",
         poses: [
           {
             name: "default",
-            interval: 1000,
+            interval: 100,
             frames: [
               {
                 x: 0,
                 y: 0,
-                width: 18,
-                height: 15
+                width: 10,
+                height: 10
               },
               {
-                x: 18,
+                x: 10,
                 y: 0,
-                width: 18,
-                height: 15
-              },
-              {
-                x: 36,
-                y: 0,
-                width: 18,
-                height: 15
-              },
-              {
-                x: 54,
-                y: 0,
-                width: 18,
-                height: 15
+                width: 10,
+                height: 10
               }
             ]
           }
@@ -47,6 +35,7 @@ export default class {
         minThrust: 0.01
       })
     );
+    this.setPosition({ x: 10, y: 50 });
 
     this.pose("default");
     this.tint();
@@ -56,5 +45,8 @@ export default class {
     if (!this.constructed) return;
     this.move();
     this.bounce();
+    this.spriteUpdate();
+
+    // debugger;
   }
 }

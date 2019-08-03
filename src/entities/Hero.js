@@ -51,6 +51,7 @@ export default class {
       new Controllable()
     );
 
+    this.setPosition({ x: 32, y: 32 });
     this.pose("default");
 
     this.constructed = true;
@@ -60,5 +61,6 @@ export default class {
     this.controllableUpdate();
     this.move();
     this.bounce();
+    this.spriteUpdate();
   }
 }

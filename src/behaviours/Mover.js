@@ -3,7 +3,7 @@ const constrain = (value, min, max) =>
 
 export default class {
   constructor({ thrustPower, thrustLimit, decelerationSpeed, minThrust }) {
-    this.position = { y: 30, x: 30 };
+    // this.position = { y: 30, x: 30 };
     this.thrust = { y: 0, x: 0 };
     this.thrustPower = thrustPower;
     this.thrustLimit = thrustLimit;

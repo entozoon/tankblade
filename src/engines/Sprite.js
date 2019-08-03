@@ -1,6 +1,6 @@
 import Pixi from "../engines/Pixi";
 export default class {
-  constructor({ spriteSheet, poses }) {
+  constructor({ spriteSheet, position, poses }) {
     this.spriteSheetTexture = new Pixi.Texture.from(spriteSheet).baseTexture;
     // // this.hero = hero;
     // this.velocity = velocity || { x: 0, y: 0 };
@@ -23,14 +23,16 @@ export default class {
     this.sprite.anchor = { x: 0.5, y: 0.5 };
     this.spriteInterval;
     Pixi.stage.addChild(this.sprite);
-    this.sprite.position = { x: 32, y: 32 };
+
     // Assign this function to itself, to expose it when being composed by Object.assign (seems redundant, but only shit in constructor gets passed up - i.e. no getters/setters)
     this.pose = this.pose;
     this.getPoseFromPoses = this.getPoseFromPoses;
     this.setPosition = this.setPosition;
     this.tint = this.tint;
+    this.spriteUpdate = this.spriteUpdate;
   }
   setPosition(position) {
+    this.position = position;
     this.sprite.position = position;
   }
   // get position() {
@@ -88,6 +90,10 @@ export default class {
     }
   }
   tint() {
-    this.sprite.tint = Math.random() * 0xffffff;
+    this.sprite.tint = 0xff0000 + Math.random() * 0x00ffff;
+  }
+  spriteUpdate() {
+    // vertical position based z-index
+    this.sprite.zIndex = this.sprite.y + this.sprite.height / 2;
   }
 }

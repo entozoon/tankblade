@@ -92,7 +92,7 @@ export default class {
   tint() {
     this.sprite.tint = 0xff0000 + Math.random() * 0x00ffff;
   }
-  spriteUpdate() {
+  spriteUpdate(dt) {
     // vertical position based z-index
     this.sprite.zIndex = this.sprite.y + this.sprite.height / 2;
   }

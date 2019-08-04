@@ -1,39 +1,27 @@
 import Sprite from "../engines/Sprite";
 import Mover from "../behaviours/Mover";
+import HeroSeeker from "../behaviours/HeroSeeker";
+import Hurter from "../behaviours/Hurter";
+import { poses } from "../poses/ghoul";
 
 export default class {
-  constructor() {
+  constructor({ hero }) {
+    this.width = 8;
+    this.height = 6;
     Object.assign(
       this,
       new Sprite({
         spriteSheet: "ghoul.png",
-        poses: [
-          {
-            name: "default",
-            interval: 100,
-            frames: [
-              {
-                x: 0,
-                y: 0,
-                width: 10,
-                height: 10
-              },
-              {
-                x: 10,
-                y: 0,
-                width: 10,
-                height: 10
-              }
-            ]
-          }
-        ]
+        poses
       }),
       new Mover({
-        thrustPower: 0.15,
-        thrustLimit: 1.5,
-        decelerationSpeed: 0.3,
-        minThrust: 0.01
-      })
+        thrustPower: 0.003,
+        thrustLimit: 0.015,
+        decelerationSpeed: 0.0001,
+        minThrust: 0.001
+      }),
+      new HeroSeeker({ hero, bounceThrust: 0.05 }),
+      new Hurter({ hp: 20 })
     );
     this.setPosition({ x: 10, y: 50 });
 
@@ -41,12 +29,11 @@ export default class {
     this.tint();
     this.constructed = true;
   }
-  update() {
+  update(dt) {
     if (!this.constructed) return;
-    this.move();
-    this.bounce();
-    this.spriteUpdate();
-
+    this.moverUpdate(dt);
+    this.heroSeekerUpdate(dt);
+    this.spriteUpdate(dt);
     // debugger;
   }
 }

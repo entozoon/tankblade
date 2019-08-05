@@ -5,11 +5,19 @@ import Hurter from "../behaviours/Hurter";
 import { poses } from "../poses/ghoul";
 
 export default class {
-  constructor({ id, hero, thrustPower, thrustLimit, dieGhoulFactory }) {
+  constructor({
+    id,
+    position,
+    thrustPower,
+    thrustLimit,
+    hero,
+    dieAtTheGhoulFactory
+  }) {
     this.id = id;
     this.width = 8;
     this.height = 6;
-    this.dieGhoulFactory = dieGhoulFactory;
+    this.dieAtTheGhoulFactory = dieAtTheGhoulFactory;
+    this.hero = hero;
     Object.assign(
       this,
       new Sprite({
@@ -20,7 +28,7 @@ export default class {
         thrustPower,
         thrustLimit,
         decelerationSpeed: 0.0001,
-        minThrust: 0.0015
+        minThrust: 0.004
       }),
       new HeroSeeker({ hero, bounceThrust: 0.05 }),
       new Hurter({
@@ -30,17 +38,33 @@ export default class {
         dieEntity: this.dieEntity.bind(this)
       })
     );
-    this.setPosition({ x: 10, y: 50 });
+    this.setPosition(position);
 
     this.tint();
     this.constructed = true;
   }
+  setBodyLanguage({ target }) {
+    if (this.hurting) {
+      this.setPose("hurting");
+    } else if (Math.abs(this.position.y - target.position.y) > 2) {
+      // Stop spazzing ^
+      this.setPose(this.thrust.y > 0 ? "default" : "back");
+    } else {
+      this.setPose("default");
+    }
+    this.setDirectionX({ target });
+  }
+  setDirectionX({ target }) {
+    let dir = Math.sign(this.thrust.x);
+    if (Math.abs(this.position.x - target.position.x) < 2) return;
+    this.spriteDirectionX(dir);
+  }
   dieEntity() {
-    this.dieGhoulFactory(this.id);
+    this.dieAtTheGhoulFactory(this.id);
   }
   update(dt) {
     if (!this.constructed) return;
-    this.setPose(this.hurting ? "hurting" : "default");
+    this.setBodyLanguage({ target: this.hero });
     this.moverUpdate(dt);
     this.heroSeekerUpdate(dt);
     this.spriteUpdate(dt);

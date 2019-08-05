@@ -31,6 +31,7 @@ export default class {
     this.tint = this.tint;
     this.spriteUpdate = this.spriteUpdate;
     this.spriteRemove = this.spriteRemove;
+    this.spriteDirectionX = this.spriteDirectionX;
   }
   spriteRemove() {
     Pixi.stage.removeChild(this.sprite);
@@ -38,6 +39,11 @@ export default class {
   setPosition(position) {
     this.position = position;
     this.sprite.position = position;
+  }
+  spriteDirectionX(dir) {
+    //  -1, 1
+    if (dir === 0) return;
+    this.sprite.scale.x = dir;
   }
   getPoseFromPoses(pose) {
     return this.poses.filter(_ => _.name === pose)[0];

@@ -16,11 +16,19 @@ export default class {
     });
   }
   thrustAway(b) {
-    this.setThrust({
-      y: this.bounceThrust * Math.sign(this.position.y - b.position.y),
-      x: this.bounceThrust * Math.sign(this.position.x - b.position.x),
-      ignoreLimits: true
-    });
+    // Stop multiple collisions
+    if (!this.hurting) {
+      // Get shoved by b's momentum somewhat, plus some extra bounceThrust, i.e. from blades
+      this.setThrust({
+        y:
+          b.thrust.y * 0.5 +
+          this.bounceThrust * Math.sign(this.position.y - b.position.y),
+        x:
+          b.thrust.x * 0.5 +
+          this.bounceThrust * Math.sign(this.position.x - b.position.x),
+        ignoreLimits: true
+      });
+    }
   }
   bounceOffHero() {
     if (within(this, this.hero)) {

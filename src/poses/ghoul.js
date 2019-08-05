@@ -1,7 +1,7 @@
 export const poses = [
   {
     name: "default",
-    interval: 200,
+    interval: 150,
     frames: [
       {
         x: 0,
@@ -18,8 +18,8 @@ export const poses = [
     ]
   },
   {
-    name: "hurting",
-    interval: 100,
+    name: "back",
+    interval: 150,
     frames: [
       {
         x: 0,
@@ -30,6 +30,24 @@ export const poses = [
       {
         x: 10,
         y: 10,
+        width: 10,
+        height: 10
+      }
+    ]
+  },
+  {
+    name: "hurting",
+    interval: 100,
+    frames: [
+      {
+        x: 0,
+        y: 20,
+        width: 10,
+        height: 10
+      },
+      {
+        x: 10,
+        y: 20,
         width: 10,
         height: 10
       }

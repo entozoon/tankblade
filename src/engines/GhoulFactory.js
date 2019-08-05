@@ -19,7 +19,10 @@ export default class {
         thrustPower: 0.0025 + Math.random() * 0.002,
         thrustLimit: 0.01 + Math.random() * 0.01,
         hero: {
-          position: this.hero.position,
+          position: {
+            y: Math.random() > 0.5 ? -32 : 96,
+            x: Math.random() > 0.5 ? -32 : 96
+          },
           width: this.hero.width,
           height: this.hero.height
         },

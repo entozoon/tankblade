@@ -56,7 +56,7 @@ export default class {
   }
   setDirectionX({ target }) {
     let dir = Math.sign(this.thrust.x);
-    if (Math.abs(this.position.x - target.position.x) < 2) return;
+    if (Math.abs(this.position.x - target.position.x) < 3) return;
     this.spriteDirectionX(dir);
   }
   dieEntity() {

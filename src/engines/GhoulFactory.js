@@ -23,12 +23,8 @@ export default class {
         position: randomOutsidePerimeter(),
         thrustPower: 0.0025 + Math.random() * 0.002,
         thrustLimit: 0.01 + Math.random() * 0.01,
-        hero: {
-          thrust: this.hero.thrust,
-          position: this.hero.position,
-          width: this.hero.width,
-          height: this.hero.height
-        },
+        // Just gonna expose the whole thing, it's doing my head in
+        hero: this.hero,
         dieAtTheGhoulFactory: this.dieAtTheGhoulFactory.bind(this)
       })
     );

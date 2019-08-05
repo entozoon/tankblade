@@ -32,6 +32,7 @@ export default class {
   }
   bounceOffHero() {
     if (within(this, this.hero)) {
+      this.hero.heroSeekerCollision(this);
       this.thrustAway(this.hero);
       this.hurt(10);
     }

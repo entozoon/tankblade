@@ -35,7 +35,8 @@ export default class {
         id,
         hp: 20,
         hurtPause: 1000 + Math.random() * 2000,
-        dieEntity: this.dieEntity.bind(this)
+        dieEntity: this.dieEntity.bind(this),
+        hero
       })
     );
     this.setPosition(position);
@@ -56,7 +57,7 @@ export default class {
   }
   setDirectionX({ target }) {
     let dir = Math.sign(this.thrust.x);
-    if (Math.abs(this.position.x - target.position.x) < 3) return;
+    if (Math.abs(this.position.x - target.position.x) < 3.5) return;
     this.spriteDirectionX(dir);
   }
   dieEntity() {
@@ -68,6 +69,7 @@ export default class {
     this.moverUpdate(dt);
     this.heroSeekerUpdate(dt);
     this.spriteUpdate(dt);
+    this.hurterUpdate(dt);
     // debugger;
   }
 }

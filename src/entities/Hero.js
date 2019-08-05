@@ -59,5 +59,6 @@ export default class {
     this.moverUpdate(dt);
     this.bounceUpdate(dt);
     this.spriteUpdate(dt);
+    this.hurterUpdate(dt);
   }
 }

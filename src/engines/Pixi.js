@@ -16,6 +16,7 @@ class Pixi {
     // Sack antialiasing off with renderer settings and CSS
     this.settings.SCALE_MODE = this.SCALE_MODES.NEAREST;
     this.settings.RENDER_OPTIONS.antialias = false;
+    this.settings.SORTABLE_CHILDREN = true; // Enable zIndex
 
     document.getElementById("game").appendChild(this.renderer.view);
 

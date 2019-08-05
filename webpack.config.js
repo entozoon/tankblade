@@ -12,7 +12,8 @@ module.exports = {
   devtool: "inline-source-map",
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    globalObject: "this"
   },
   devServer: {
     contentBase: "./build"

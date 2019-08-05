@@ -16,5 +16,23 @@ export const poses = [
         height: 10
       }
     ]
+  },
+  {
+    name: "hurting",
+    interval: 100,
+    frames: [
+      {
+        x: 0,
+        y: 10,
+        width: 10,
+        height: 10
+      },
+      {
+        x: 10,
+        y: 10,
+        width: 10,
+        height: 10
+      }
+    ]
   }
 ];

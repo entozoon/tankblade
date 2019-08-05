@@ -26,7 +26,7 @@ export default class {
     );
 
     this.setPosition({ x: 32, y: 32 });
-    this.pose("default");
+    this.setPose("default");
 
     this.constructed = true;
   }

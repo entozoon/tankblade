@@ -1,17 +1,12 @@
 import Pixi from "./engines/Pixi";
 import Hero from "./entities/Hero";
-import Ghoul from "./entities/Ghoul";
+import GhoulFactory from "./engines/GhoulFactory";
 
 const hero = new Hero();
-const ghoul = new Ghoul({
-  hero: {
-    position: hero.position,
-    width: hero.width,
-    height: hero.height
-  }
-});
+const ghoulFactory = new GhoulFactory({ frequency: 5000, hero });
 
-// const ghoulFactory = () = { // ...  }
+// Shove a temporary class on game for dev reasons
+document.getElementById("game").classList.add(`-${window.location.hostname}`);
 
 let then = Date.now();
 const loop = () => {
@@ -21,6 +16,6 @@ const loop = () => {
   Pixi.render();
   requestAnimationFrame(loop);
   hero.update(dt);
-  ghoul.update(dt);
+  ghoulFactory.update(dt);
 };
 loop();

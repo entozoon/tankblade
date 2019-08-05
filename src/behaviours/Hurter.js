@@ -1,22 +1,27 @@
 export default class {
-  constructor({ hp }) {
-    this.hurting = false;
+  constructor({ id, hp, dieEntity, hurtPause }) {
     this.hp = hp;
     this.hurt = this.hurt;
     this.die = this.die;
+    this.dieEntity = dieEntity;
+    this.hurtPause = hurtPause;
+    this.hurting = false;
   }
   die() {
-    console.log("Dying");
+    this.dieEntity();
   }
   hurt(value) {
     this.hp -= value;
     this.hurting = true;
     clearTimeout(this.hurtingTimeout);
-    this.hurtingTimeout = setTimeout(() => {
-      this.hurting = false;
-    }, 2000);
     if (this.hp <= 0) {
-      this.die();
+      setTimeout(() => {
+        this.die();
+      }, 1000);
+    } else {
+      this.hurtingTimeout = setTimeout(() => {
+        this.hurting = false;
+      }, this.hurtPause);
     }
   }
 }

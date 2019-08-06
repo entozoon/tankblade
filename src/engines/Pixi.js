@@ -44,6 +44,9 @@ class Pixi {
   }
   render() {
     // Re-render the main stage
+    this.bg.alpha = 0.1;
+    this.containerBgBlood.addChild(this.bg);
+
     this.rendererBgBlood.render(this.containerBgBlood);
     this.rendererMain.render(this.containerMain);
   }

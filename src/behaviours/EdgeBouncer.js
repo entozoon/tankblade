@@ -1,5 +1,4 @@
 import { constrain } from "../lib/utilities";
-
 export default class {
   constructor() {
     this.fuckingUp = this.fuckingUp;
@@ -10,7 +9,6 @@ export default class {
   }
   fuckingUp(dt) {
     this.fuckingUpTimer += dt;
-
     // Won't necessarily do anything, like if it boinked it's way back in
     if (this.fuckingUpTimer > 2000) {
       this.setPosition({
@@ -27,15 +25,18 @@ export default class {
     const nudge = this.thrustPower * 2,
       offsetY = 3,
       offsetX = 6;
-    if (this.position.y < offsetY || this.position.y > 64 - offsetY) {
-      this.thrust.y =
-        -Math.sign(this.thrust.y) * (Math.abs(this.thrust.y) + nudge);
-      this.fuckingUp(dt);
-    } else if (this.position.x < offsetX || this.position.x > 64 - offsetX) {
-      this.thrust.x =
-        -Math.sign(this.thrust.x) * (Math.abs(this.thrust.x) + nudge);
-      this.fuckingUp(dt);
-    } else {
+    const offPisteDir = {
+      y:
+        this.position.y < offsetY ? -1 : this.position.y > 64 - offsetY ? 1 : 0,
+      x: this.position.x < offsetX ? -1 : this.position.x > 64 - offsetX ? 1 : 0
+    };
+    if (offPisteDir.y) {
+      this.thrust.y = -offPisteDir.y * (Math.abs(this.thrust.y) + nudge);
+    }
+    if (offPisteDir.x) {
+      this.thrust.x = -offPisteDir.x * (Math.abs(this.thrust.x) + nudge);
+    }
+    if (!offPisteDir.x && !offPisteDir.y) {
       this.fuckingUpReset();
     }
   }

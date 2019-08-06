@@ -2,13 +2,8 @@ const webpack = require("webpack"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
   { CleanWebpackPlugin } = require("clean-webpack-plugin"),
   CopyWebpackPlugin = require("copy-webpack-plugin"),
-  ExtractTextPlugin = require(`extract-text-webpack-plugin`),
   path = require("path");
 module.exports = (env, argv) => {
-  const extractCss = new ExtractTextPlugin({
-    filename: `app.css`
-  });
-
   return {
     entry: {
       main: [`${__dirname}/src/main.js`, `${__dirname}/src/app.scss`]

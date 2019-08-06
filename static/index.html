@@ -17,8 +17,37 @@
         position: relative;
         width: 64px;
         height: 64px;
-        transform: scale(6);
         transform-origin: center center;
+      }
+      @media (min-width: calc(64px * 2)) {
+        #game {
+          transform: scale(2);
+        }
+      }
+      @media (min-width: calc(64px * 3)) {
+        #game {
+          transform: scale(3);
+        }
+      }
+      @media (min-width: calc(64px * 4)) {
+        #game {
+          transform: scale(4);
+        }
+      }
+      @media (min-width: calc(64px * 5)) {
+        #game {
+          transform: scale(5);
+        }
+      }
+      @media (min-width: calc(64px * 6)) {
+        #game {
+          transform: scale(6);
+        }
+      }
+      @media (min-width: calc(64px * 7)) {
+        #game {
+          transform: scale(7);
+        }
       }
       #game canvas {
         position: absolute;
@@ -37,7 +66,7 @@
       }
       /* Remove scaling for debugging */
       #game.-localhost {
-        transform: none;
+        /* transform: none; */
       }
     </style>
   </head>

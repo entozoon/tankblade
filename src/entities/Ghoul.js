@@ -51,6 +51,7 @@ export default class {
     } else if (Math.abs(this.position.y - target.position.y) > 2) {
       // Stop spazzing ^
       this.setPose(this.thrust.y > 0 ? "default" : "back");
+      console.log(Math.abs(this.position.y - target.position.y));
     } else {
       // Stop spazzing to face up/down
       if (

@@ -11,6 +11,8 @@ class Pixi {
       transparent: false,
       resolution: 1,
       backgroundColor: 0x222222
+      // preserveDrawingBuffer: true,
+      // clearBeforeRender: false
     });
 
     // Sack antialiasing off with renderer settings and CSS
@@ -32,4 +34,4 @@ class Pixi {
   }
 }
 
-export default new Pixi();
+export default new Pixi(); // Single instance

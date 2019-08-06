@@ -6,7 +6,11 @@ const hero = new Hero();
 const ghoulFactory = new GhoulFactory({ frequency: 2000, hero });
 
 // Shove a temporary class on game for dev reasons
-// document.getElementById("game").classList.add(`-${window.location.hostname}`);
+document
+  .getElementById("game")
+  .classList.add(
+    `${window.location.hostname === "localhost" ? "-localhost" : ""}`
+  );
 
 let then = Date.now();
 const loop = () => {

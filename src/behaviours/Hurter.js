@@ -1,14 +1,5 @@
 import Pixi from "../engines/Pixi";
-let bloodener = new Pixi.ParticleContainer(1000, {
-  // most are default, but just for dev..
-  scale: true,
-  position: true,
-  rotation: true,
-  uvs: true,
-  alpha: true
-});
-Pixi.stage.addChild(bloodener);
-bloodener.zIndex = 1000;
+import Bloodener from "../effects/Bloodener";
 
 export default class {
   constructor({ id, hp, dieEntity, hurtPause, hero }) {
@@ -52,10 +43,10 @@ export default class {
       blood.lifespan = 750 + r2 * 1250;
       blood.lifeFactor = 1;
       // blood.zIndex = 1000;
-      bloodener.addChild(blood);
+      Bloodener.particleContainer.addChild(blood);
       this.bloods.push(blood);
       setTimeout(() => {
-        bloodener.removeChild(blood);
+        Bloodener.particleContainer.removeChild(blood);
       }, blood.lifespan);
     }
     // console.timeEnd();

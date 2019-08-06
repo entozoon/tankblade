@@ -8,12 +8,24 @@ export default class {
     this.thrustToward = this.thrustToward;
     this.thrustAway = this.thrustAway;
     this.bounceOffHero = this.bounceOffHero;
+    this.targetOffset = {
+      y: Math.random() * 10 - 5,
+      x: Math.random() * 12 - 6
+    };
   }
   thrustToward(b) {
-    this.setThrust({
-      y: this.thrustPower * Math.sign(b.position.y - this.position.y),
-      x: this.thrustPower * Math.sign(b.position.x - this.position.x)
-    });
+    let heroOffset = {
+      y: b.position.y + this.targetOffset.y - this.position.y,
+      x: b.position.x + this.targetOffset.x - this.position.x
+    };
+    const thrustNew = {
+      y: Math.sign(heroOffset.y) * this.thrustPower,
+      x: Math.sign(heroOffset.x) * this.thrustPower
+    };
+    // if (Math.abs(heroOffset.y) > 20 || Math.abs(heroOffset.x) > 20) {
+    //   console.log(Math.abs(heroOffset.x));
+    // }
+    this.setThrust(thrustNew);
   }
   thrustAway(b) {
     // Stop multiple collisions

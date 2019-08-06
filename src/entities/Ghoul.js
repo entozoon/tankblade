@@ -7,6 +7,7 @@ import { poses } from "../poses/ghoul";
 export default class {
   constructor({
     id,
+    hp,
     position,
     thrustPower,
     thrustLimit,
@@ -33,7 +34,7 @@ export default class {
       new HeroSeeker({ hero, bounceThrust: 0.05 }),
       new Hurter({
         id,
-        hp: 20,
+        hp,
         hurtPause: 1000 + Math.random() * 2000,
         dieEntity: this.dieEntity.bind(this),
         hero
@@ -51,13 +52,23 @@ export default class {
       // Stop spazzing ^
       this.setPose(this.thrust.y > 0 ? "default" : "back");
     } else {
-      this.setPose("default");
+      // Stop spazzing to face up/down
+      if (
+        Math.abs(this.position.y - (target.position.y + this.targetOffset.y)) >
+        1
+      ) {
+        this.setPose("default");
+      }
     }
     this.setDirectionX({ target });
   }
   setDirectionX({ target }) {
     let dir = Math.sign(this.thrust.x);
-    if (Math.abs(this.position.x - target.position.x) < 3.5) return;
+    // Stop spazzing to face left/right
+    if (
+      Math.abs(this.position.x - (target.position.x + this.targetOffset.x)) < 1
+    )
+      return;
     this.spriteDirectionX(dir);
   }
   dieEntity() {

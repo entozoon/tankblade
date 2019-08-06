@@ -2,8 +2,9 @@ import Ghoul from "../entities/Ghoul";
 import { randomOutsidePerimeter } from "../lib/utilities";
 
 export default class {
-  constructor({ frequency, hero }) {
-    this.frequency = frequency;
+  constructor({ timeoutStart, timeoutEnd, hero }) {
+    this.timeout = timeoutStart;
+    this.timeoutEnd = timeoutEnd;
     this.hero = hero;
     this.ghouls = [];
     this.waveTimer = 0;
@@ -16,10 +17,11 @@ export default class {
       this.ghouls = this.ghouls.filter(g => g.id !== id);
     }
   }
-  make() {
+  make(wave) {
     this.ghouls.push(
       new Ghoul({
-        id: this.wave,
+        id: wave,
+        hp: wave < 300 ? 1 : 20,
         position: randomOutsidePerimeter(),
         thrustPower: 0.0025 + Math.random() * 0.002,
         thrustLimit: 0.01 + Math.random() * 0.01,
@@ -31,15 +33,21 @@ export default class {
   }
   update(dt) {
     this.waveTimer += dt;
-    this.frequency -= dt * 0.05; // hacky but yeah
-    this.frequency = this.frequency < 50 ? 50 : this.frequency; // endgame
-    this.wave = Math.floor(this.waveTimer / this.frequency);
+    this.timeout -= dt * 0.05; // hacky but yeah
+    this.timeout =
+      this.timeout < this.timeoutEnd ? this.timeoutEnd : this.timeout; // endgame
+    this.wave = Math.floor(this.waveTimer / this.timeout);
+    // console.log(this.ghouls.length);
     if (
       !this.ghouls.length ||
       this.ghouls[this.ghouls.length - 1].id < this.wave
     ) {
-      this.make();
+      this.make(this.wave);
     }
     this.ghouls.forEach(g => g.update(dt));
+
+    if (this.ghouls.length > 200) {
+      console.error("Game over!");
+    }
   }
 }

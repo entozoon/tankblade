@@ -3,7 +3,11 @@ import Hero from "./entities/Hero";
 import GhoulFactory from "./engines/GhoulFactory";
 
 const hero = new Hero();
-const ghoulFactory = new GhoulFactory({ frequency: 2000, hero });
+const ghoulFactory = new GhoulFactory({
+  timeoutStart: 2000,
+  timeoutEnd: 100,
+  hero
+});
 
 // Shove a temporary class on game for dev reasons
 document

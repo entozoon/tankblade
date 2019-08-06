@@ -31,6 +31,8 @@ export default class {
   }
   update(dt) {
     this.waveTimer += dt;
+    this.frequency -= dt * 0.05; // hacky but yeah
+    this.frequency = this.frequency < 50 ? 50 : this.frequency; // endgame
     this.wave = Math.floor(this.waveTimer / this.frequency);
     if (
       !this.ghouls.length ||

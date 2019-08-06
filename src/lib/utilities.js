@@ -10,7 +10,7 @@ export const within = (a, b) =>
 
 export const randomOutsidePerimeter = () => {
   const fixYorX = Math.random() > 0.5 ? true : false,
-    outset = 10;
+    outset = 5;
   return {
     // Just.. just bear with me. I have to braindump this stuff.
     // On reflection, a circle could have been more natural

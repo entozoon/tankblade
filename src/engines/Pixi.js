@@ -4,33 +4,48 @@ class Pixi {
   constructor() {
     Object.assign(this, PIXI);
 
-    this.renderer = this.autoDetectRenderer({
-      width: 64,
-      height: 64,
-      antialias: false,
-      transparent: false,
-      resolution: 1,
-      backgroundColor: 0x222222
-      // preserveDrawingBuffer: true,
-      // clearBeforeRender: false
-    });
-
     // Sack antialiasing off with renderer settings and CSS
     this.settings.SCALE_MODE = this.SCALE_MODES.NEAREST;
     this.settings.RENDER_OPTIONS.antialias = false;
     this.settings.SORTABLE_CHILDREN = true; // Enable zIndex
 
-    document.getElementById("game").appendChild(this.renderer.view);
+    this.rendererBgBlood = this.autoDetectRenderer({
+      width: 64,
+      height: 64,
+      antialias: false,
+      resolution: 1,
+      backgroundColor: 0x222222,
+      transparent: false,
+      preserveDrawingBuffer: true,
+      clearBeforeRender: false
+    });
+    this.rendererMain = this.autoDetectRenderer({
+      width: 64,
+      height: 64,
+      antialias: false,
+      resolution: 1,
+      // backgroundColor: 0x222222,
+      transparent: true
+    });
 
-    this.stage = new PIXI.Container();
+    document.getElementById("game").appendChild(this.rendererBgBlood.view);
+    document.getElementById("game").appendChild(this.rendererMain.view);
+
+    this.containerBgBlood = new PIXI.Container();
+    this.containerMain = new PIXI.Container();
 
     // Background
-    const bg = new PIXI.Sprite(new PIXI.Texture.from("bg.png"));
-    this.stage.addChild(bg);
+    this.bg = new PIXI.Sprite(new PIXI.Texture.from("bg.png"));
+
+    this.containerBgBlood.addChild(this.bg);
+    setTimeout(() => {
+      this.containerBgBlood.removeChild(this.bg); // after first render
+    }, 500);
   }
   render() {
     // Re-render the main stage
-    this.renderer.render(this.stage);
+    this.rendererBgBlood.render(this.containerBgBlood);
+    this.rendererMain.render(this.containerMain);
   }
 }
 

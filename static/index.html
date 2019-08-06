@@ -13,8 +13,19 @@
         background: black;
         height: 100vh;
       }
+      #game {
+        position: relative;
+        width: 64px;
+        height: 64px;
+        transform: scale(6);
+        transform-origin: center center;
+      }
       #game canvas {
-        max-width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         box-shadow: 0 0 30px 1px #232323;
         /* Sack antialiasing off with renderer settings and CSS */
         image-rendering: optimizeSpeed;
@@ -23,12 +34,10 @@
         image-rendering: optimize-contrast;
         image-rendering: pixelated;
         -ms-interpolation-mode: nearest-neighbor;
-        transform: scale(6);
-        transform-origin: center center;
       }
       /* Remove scaling for debugging */
-      #game.-localhost canvas {
-        /* transform: none; */
+      #game.-localhost {
+        transform: none;
       }
     </style>
   </head>

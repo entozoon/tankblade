@@ -23,27 +23,7 @@ export default class {
 
     // console.time();
     for (let i = 0; i < 25; ++i) {
-      let blood = Pixi.Sprite.from("blood.png");
-      // Gotta make some optimisations somehow..
-      const r1 = Math.random(),
-        r2 = Math.random();
-      blood.y = this.position.y;
-      blood.x = this.position.x;
-      blood.thrust = {
-        y:
-          r1 * 6 * Math.sign(r1 - 0.5) +
-          r2 * 3 * (this.position.y - this.hero.position.y),
-        x:
-          r2 * 6 * Math.sign(r2 - 0.5) +
-          r1 * 3 * (this.position.x - this.hero.position.x)
-      };
-      blood.tint = 0x333333 + r1 * 0x999999;
-      blood.scale.y = 0.2 + r1 * 0.5;
-      blood.scale.x = 0.2 + r2 * 0.5;
-      blood.lifespan = 750 + r2 * 1250;
-      blood.lifeFactor = 1;
-      // blood.zIndex = 1000;
-      Bloodener.particleContainer.addChild(blood);
+      const blood = Bloodener.newBlood(this.position, this.hero.position);
       this.bloods.push(blood);
       setTimeout(() => {
         Bloodener.particleContainer.removeChild(blood);

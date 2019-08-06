@@ -22,7 +22,7 @@ export default class {
     // maybe avoiding having to offset sprites at all:
     this.sprite.anchor = { x: 0.5, y: 0.5 };
     this.spriteInterval;
-    Pixi.stage.addChild(this.sprite);
+    Pixi.containerMain.addChild(this.sprite);
 
     // Assign this function to itself, to expose it when being composed by Object.assign (seems redundant, but only shit in constructor gets passed up - i.e. no getters/setters)
     this.setPose = this.setPose;
@@ -34,7 +34,7 @@ export default class {
     this.spriteDirectionX = this.spriteDirectionX;
   }
   spriteRemove() {
-    Pixi.stage.removeChild(this.sprite);
+    Pixi.containerMain.removeChild(this.sprite);
   }
   setPosition(position) {
     this.position = position;

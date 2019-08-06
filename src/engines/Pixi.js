@@ -38,15 +38,14 @@ class Pixi {
     this.bg = new PIXI.Sprite(new PIXI.Texture.from("bg.png"));
 
     this.containerBgBlood.addChild(this.bg);
+    this.bg.alpha = 1;
     setTimeout(() => {
       this.containerBgBlood.removeChild(this.bg); // after first render
+      this.bg.alpha = 0.02; // bloodslick
     }, 500);
   }
   render() {
-    // Re-render the main stage
-    this.bg.alpha = 0.1;
     this.containerBgBlood.addChild(this.bg);
-
     this.rendererBgBlood.render(this.containerBgBlood);
     this.rendererMain.render(this.containerMain);
   }

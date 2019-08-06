@@ -9,7 +9,7 @@ const ghoulFactory = new GhoulFactory({ frequency: 2000, hero });
 document
   .getElementById("game")
   .classList.add(
-    `${window.location.hostname === "localhost" ? "-localhost" : ""}`
+    window.location.hostname === "localhost" ? "-localhost" : null
   );
 
 let then = Date.now();

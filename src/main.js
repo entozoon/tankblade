@@ -2,6 +2,10 @@ import Pixi from "./engines/Pixi";
 import Hero from "./entities/Hero";
 import GhoulFactory from "./engines/GhoulFactory";
 
+const waveChange = 4000;
+let start = Date.now(), // <- reset to restart game
+  then = Date.now();
+
 const hero = new Hero();
 const ghoulFactory = new GhoulFactory({
   timeoutStart: 2000,
@@ -16,14 +20,15 @@ document
     window.location.hostname === "localhost" ? "-localhost" : null
   );
 
-let then = Date.now();
 const loop = () => {
-  let dt = Date.now() - then;
+  const dt = Date.now() - then,
+    elapsed = then - start;
   then = Date.now();
 
   Pixi.render();
   requestAnimationFrame(loop);
   hero.update(dt);
-  ghoulFactory.update(dt);
+  const wave = Math.floor(elapsed / waveChange) + 1;
+  ghoulFactory.update(dt, wave);
 };
 loop();

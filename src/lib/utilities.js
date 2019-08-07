@@ -1,5 +1,6 @@
 export const constrain = (value, min, max) =>
-  value > max ? max : value < min ? min : value;
+  value > max ? max : value < min ? min : value; // <- slightly faster
+// Math.min(Math.max(parseInt(value), min), max);
 
 // Bounding box jank
 export const within = (a, b) =>

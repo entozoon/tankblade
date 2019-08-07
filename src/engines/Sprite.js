@@ -1,6 +1,7 @@
 import Pixi from "../engines/Pixi";
 export default class {
-  constructor({ spriteSheet, position, poses }) {
+  constructor({ spriteSheet, adrenaline, poses }) {
+    this.adrenaline = adrenaline || 0;
     this.spriteSheetTexture = new Pixi.Texture.from(spriteSheet).baseTexture;
     // // this.hero = hero;
     // this.velocity = velocity || { x: 0, y: 0 };
@@ -58,12 +59,13 @@ export default class {
     this.pose = pose; // e.g. 'run'
     // frame 0
     this.sprite.texture = thisPose.frames[0].texture;
+
     // Pump adrenaline into the interval time
-    let interval = this.adrenaline
-      ? thisPose.interval - this.adrenaline
-      : thisPose.interval;
+    let interval = thisPose.interval - this.adrenaline;
 
     // Set the animation going at the desired interval speed
+    // I'm pretty sure intervals aren't the best for this, and that
+    // after a long (long) time it breaks animations but cba with %dt
     clearInterval(this.spriteInterval);
     if (thisPose.frames.length > 1) {
       this.frameTicker = 1;

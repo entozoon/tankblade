@@ -1,7 +1,7 @@
 export const poses = [
   {
     name: "default",
-    interval: 150,
+    interval: 400,
     frames: [
       {
         x: 0,
@@ -19,7 +19,7 @@ export const poses = [
   },
   {
     name: "back",
-    interval: 150,
+    interval: 400,
     frames: [
       {
         x: 0,

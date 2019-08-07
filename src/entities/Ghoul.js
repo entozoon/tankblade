@@ -3,6 +3,7 @@ import Mover from "../behaviours/Mover";
 import HeroSeeker from "../behaviours/HeroSeeker";
 import Hurter from "../behaviours/Hurter";
 import { poses } from "../poses/ghoul";
+import { constrain } from "../lib/utilities";
 
 export default class {
   constructor({
@@ -23,6 +24,7 @@ export default class {
       this,
       new Sprite({
         spriteSheet: "ghoul.png",
+        adrenaline: constrain(thrustPower * 50000, 0, 100),
         poses
       }),
       new Mover({

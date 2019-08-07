@@ -4,7 +4,7 @@ import GhoulFactory from "./engines/GhoulFactory";
 
 const hero = new Hero();
 const ghoulFactory = new GhoulFactory({
-  timeoutStart: 20000,
+  timeoutStart: 2000,
   timeoutEnd: 100,
   hero
 });

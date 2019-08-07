@@ -39,7 +39,7 @@ export default class {
     this.constructed = true;
   }
   dieEntity() {
-    console.error("Game over");
+    // Can't currently get hurt, as such, so..
   }
   heroSeekerCollision(heroSeeker) {
     if (heroSeeker.hurting) return;
@@ -47,8 +47,8 @@ export default class {
     if (!this.hurting) {
       // Hacking the hurter mechanic to stop it spazzing bounce thrusts
       this.setThrust({
-        x: heroSeeker.thrust.x * 10,
-        y: heroSeeker.thrust.y * 10
+        x: heroSeeker.thrust.x * 2,
+        y: heroSeeker.thrust.y * 2
       });
     }
     this.hurt(0);

@@ -1,3 +1,4 @@
+import Pixi from "../engines/Pixi";
 import Ghoul from "../entities/Ghoul";
 import { randomOutsidePerimeter } from "../lib/utilities";
 
@@ -23,7 +24,7 @@ export default class {
         id: wave,
         hp: wave < 300 ? 1 : 20,
         position: randomOutsidePerimeter(),
-        thrustPower: 0.0025 + Math.random() * 0.002,
+        thrustPower: 0.0025 + Math.random() * 0.004,
         thrustLimit: 0.01 + Math.random() * 0.01,
         // Just gonna expose the whole thing, it's doing my head in
         hero: this.hero,
@@ -48,6 +49,10 @@ export default class {
 
     if (this.ghouls.length > 200) {
       console.error("Game over!");
+    }
+
+    if (this.ghouls.length > 1) {
+      Pixi.bg.tint = 0x000000;
     }
   }
 }

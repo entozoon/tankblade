@@ -9,7 +9,7 @@ export default class {
     this.thrustAway = this.thrustAway;
     this.bounceOffHero = this.bounceOffHero;
     this.targetOffset = {
-      x: Math.random() * 12 - 6,
+      x: Math.random() * 14 - 7,
       y: Math.random() * 10 - 5
     };
   }

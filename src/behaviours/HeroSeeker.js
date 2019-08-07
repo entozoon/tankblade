@@ -22,9 +22,10 @@ export default class {
       y: Math.sign(heroOffset.y) * this.thrustPower,
       x: Math.sign(heroOffset.x) * this.thrustPower
     };
-    // if (Math.abs(heroOffset.y) > 20 || Math.abs(heroOffset.x) > 20) {
-    //   console.log(Math.abs(heroOffset.x));
-    // }
+    // Reduce up down thrust spazzing when zeroing in on b, on each axis
+    thrustNew.y = Math.abs(heroOffset.y) < 0.1 ? 0 : thrustNew.y;
+    thrustNew.x = Math.abs(heroOffset.x) < 0.1 ? 0 : thrustNew.x;
+
     this.setThrust(thrustNew);
   }
   thrustAway(b) {

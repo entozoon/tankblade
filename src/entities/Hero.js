@@ -33,7 +33,7 @@ export default class {
       new Controllable()
     );
     // this.setThrust = this.setThrust;
-    this.setPosition({ x: 32, y: 32 });
+    this.setPosition({ y: 32, x: 32 });
     this.setPose("default");
 
     this.constructed = true;
@@ -47,8 +47,8 @@ export default class {
     if (!this.hurting) {
       // Hacking the hurter mechanic to stop it spazzing bounce thrusts
       this.setThrust({
-        y: heroSeeker.thrust.y * 10,
-        x: heroSeeker.thrust.x * 10
+        x: heroSeeker.thrust.x * 10,
+        y: heroSeeker.thrust.y * 10
       });
     }
     this.hurt(0);

@@ -9,22 +9,22 @@ export default class {
     this.thrustAway = this.thrustAway;
     this.bounceOffHero = this.bounceOffHero;
     this.targetOffset = {
-      y: Math.random() * 10 - 5,
-      x: Math.random() * 12 - 6
+      x: Math.random() * 12 - 6,
+      y: Math.random() * 10 - 5
     };
   }
   thrustToward(b) {
     let heroOffset = {
-      y: b.position.y + this.targetOffset.y - this.position.y,
-      x: b.position.x + this.targetOffset.x - this.position.x
+      x: b.position.x + this.targetOffset.x - this.position.x,
+      y: b.position.y + this.targetOffset.y - this.position.y
     };
     const thrustNew = {
-      y: Math.sign(heroOffset.y) * this.thrustPower,
-      x: Math.sign(heroOffset.x) * this.thrustPower
+      x: Math.sign(heroOffset.x) * this.thrustPower,
+      y: Math.sign(heroOffset.y) * this.thrustPower
     };
     // Reduce up down thrust spazzing when zeroing in on b, on each axis
-    thrustNew.y = Math.abs(heroOffset.y) < 0.1 ? 0 : thrustNew.y;
     thrustNew.x = Math.abs(heroOffset.x) < 0.1 ? 0 : thrustNew.x;
+    thrustNew.y = Math.abs(heroOffset.y) < 0.1 ? 0 : thrustNew.y;
 
     this.setThrust(thrustNew);
   }
@@ -33,13 +33,13 @@ export default class {
     if (!this.hurting) {
       // Get shoved by b's momentum somewhat, plus some extra bounceThrust, i.e. from blades
       this.setThrust({
-        y:
-          b.thrust.y * 0.5 +
-          this.bounceThrust * Math.sign(this.position.y - b.position.y),
         x:
           b.thrust.x * 0.5 +
           this.bounceThrust * Math.sign(this.position.x - b.position.x),
-        ignoreLimits: true
+        ignoreLimits: true,
+        y:
+          b.thrust.y * 0.5 +
+          this.bounceThrust * Math.sign(this.position.y - b.position.y)
       });
     }
   }

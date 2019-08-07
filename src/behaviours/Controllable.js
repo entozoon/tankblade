@@ -23,14 +23,14 @@ export default class {
   }
   controllableUpdate() {
     this.setThrust({
-      y: this.keyMatrix.up
-        ? -this.thrustPower
-        : this.keyMatrix.down
-        ? this.thrustPower
-        : 0,
       x: this.keyMatrix.left
         ? -this.thrustPower
         : this.keyMatrix.right
+        ? this.thrustPower
+        : 0,
+      y: this.keyMatrix.up
+        ? -this.thrustPower
+        : this.keyMatrix.down
         ? this.thrustPower
         : 0
     });

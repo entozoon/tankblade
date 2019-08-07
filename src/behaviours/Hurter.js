@@ -56,8 +56,8 @@ export default class {
       const blood = this.bloods[i];
       let dec = blood.lifeFactor - 0.7;
       dec = dec < 0 ? 0 : dec;
-      blood.y += blood.thrust.y * this.bloodThrustSpeed * dt * dec;
       blood.x += blood.thrust.x * this.bloodThrustSpeed * dt * dec;
+      blood.y += blood.thrust.y * this.bloodThrustSpeed * dt * dec;
       blood.alpha = blood.lifeFactor;
       blood.lifeFactor -= dt / blood.lifespan;
       blood.lifeFactor = blood.lifeFactor < 0 ? 0 : blood.lifeFactor;

@@ -46,13 +46,14 @@ export default class {
     this.constructed = true;
   }
   setBodyLanguage({ target }) {
+    // Set appropriate sprite pose, trying to avoid up/down, left/right spazzing
     if (this.hurting) {
       this.setPose("hurting");
-    } else if (Math.abs(this.position.y - target.position.y) > 2) {
-      // Stop spazzing ^
+    } else if (
+      Math.abs(this.position.y - (target.position.y + this.targetOffset.y)) > 2
+    ) {
       this.setPose(this.thrust.y > 0 ? "default" : "back");
     } else {
-      // Stop spazzing to face up/down
       if (
         Math.abs(this.position.y - (target.position.y + this.targetOffset.y)) >
         1

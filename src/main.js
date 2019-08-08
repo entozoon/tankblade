@@ -52,6 +52,6 @@ const loop = () => {
   hero.update(dt);
   const wave = Math.floor(elapsed / waveChange) + 1;
   ghoulFactory.update(dt, wave);
-  Background.update(dt);
+  Background.update(dt, elapsed);
 };
 loop();

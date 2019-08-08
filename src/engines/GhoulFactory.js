@@ -3,6 +3,7 @@ import Ghoul from "../entities/Ghoul";
 import { constrain } from "../lib/utilities";
 import { randomOutsidePerimeter } from "../lib/utilities";
 import { ghoulCountGettingHairy, ghoulCountGameOver } from "../config";
+import Background from "../effects/Background";
 
 export default class {
   constructor({ timeoutStart, timeoutEnd, hero, gameOver }) {
@@ -14,8 +15,8 @@ export default class {
     this.makeCount = 0;
     this.makeTimeout = 0;
     this.gettingHairy = () => this.ghouls.length > ghoulCountGettingHairy;
-    this.gettingHairyTimeout = 0;
-    this.gettingHairyPulseSpeed = 500;
+    this.gettingHairyChanging = false;
+    ghoulCountGettingHairy;
     this.gameOver = gameOver;
     this.reboot = this.reboot;
   }
@@ -46,8 +47,6 @@ export default class {
     console.log("GhoulFactory reboot..");
     this.ghouls.forEach(g => g.spriteRemove());
     this.ghouls = [];
-    // Pixi.bg.tint = 0xffffff;
-    // Pixi.bg.alpha = 0.02;
   }
   update(dt, wave) {
     // Create ghouls, at an appropriate speed
@@ -64,20 +63,12 @@ export default class {
 
     // Flash red if we're in trouble
     if (this.gettingHairy()) {
-      // this.gettingHairyTimeout += dt;
-      // Pixi.bg.alpha = 1;
-      // Pixi.bg.tint =
-      //   0xffffff -
-      //   0x00ffff *
-      //     (1 -
-      //       Math.abs(
-      //         (this.gettingHairyTimeout % this.gettingHairyPulseSpeed) * 2 -
-      //           this.gettingHairyPulseSpeed
-      //       ) /
-      //         this.gettingHairyPulseSpeed);
-    } else {
-      // Background.reset();
+      Background.gettingHairy = true;
+    } else if (Background.gettingHairy) {
+      Background.reset(); // Only run the once
+      Background.gettingHairy = false;
     }
+
     if (this.ghouls.length > ghoulCountGameOver) {
       this.gameOver;
     }

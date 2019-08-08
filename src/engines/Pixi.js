@@ -39,27 +39,16 @@ class Pixi {
     this.containerBgBlood = new PIXI.Container();
     this.containerMain = new PIXI.Container();
 
-    // Background
-    this.bg = new PIXI.Sprite(new PIXI.Texture.from("bg.png"));
-
-    this.containerBgBlood.addChild(this.bg);
-    this.bg.alpha = 1;
-    setTimeout(() => {
-      this.containerBgBlood.removeChild(this.bg); // after first render
-      this.bg.alpha = 0.02; // bloodslick
-    }, 500);
-
     // Points HUD
     fontObserver.load().then(() => {
       this.pointsText = pointsText();
       this.containerMain.addChild(this.pointsText);
     });
   }
+  addBackground() {}
   render() {
-    this.containerBgBlood.addChild(this.bg);
     this.rendererBgBlood.render(this.containerBgBlood);
     this.rendererMain.render(this.containerMain);
   }
 }
-
 export default new Pixi(); // Single instance

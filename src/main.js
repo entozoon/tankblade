@@ -2,6 +2,7 @@ import Pixi from "./engines/Pixi";
 import Hero from "./entities/Hero";
 import GhoulFactory from "./engines/GhoulFactory";
 import { waveChange } from "./config";
+import Background from "./effects/Background";
 
 let start = Date.now(), // <- reset to restart waves
   then = Date.now();
@@ -11,10 +12,12 @@ const gameOver = () => {
   start = Date.now();
   ghoulFactory.reboot();
 };
-setTimeout(() => {
-  console.log("(Automatic gameover after 60 seconds for testing!)");
+setInterval(() => {
+  console.log("(Automatic gameover for testing!)");
   gameOver();
-}, 60000);
+}, 10000);
+
+Background.create();
 
 const hero = new Hero();
 const ghoulFactory = new GhoulFactory({
@@ -49,5 +52,6 @@ const loop = () => {
   hero.update(dt);
   const wave = Math.floor(elapsed / waveChange) + 1;
   ghoulFactory.update(dt, wave);
+  Background.update(dt);
 };
 loop();

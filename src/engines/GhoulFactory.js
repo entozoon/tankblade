@@ -46,6 +46,8 @@ export default class {
     console.log("GhoulFactory reboot..");
     this.ghouls.forEach(g => g.spriteRemove());
     this.ghouls = [];
+    // Pixi.bg.tint = 0xffffff;
+    // Pixi.bg.alpha = 0.02;
   }
   update(dt, wave) {
     // Create ghouls, at an appropriate speed
@@ -62,17 +64,19 @@ export default class {
 
     // Flash red if we're in trouble
     if (this.gettingHairy()) {
-      this.gettingHairyTimeout += dt;
-      Pixi.bg.alpha = 1;
-      Pixi.bg.tint =
-        0xffffff -
-        0x00ffff *
-          (1 -
-            Math.abs(
-              (this.gettingHairyTimeout % this.gettingHairyPulseSpeed) * 2 -
-                this.gettingHairyPulseSpeed
-            ) /
-              this.gettingHairyPulseSpeed);
+      // this.gettingHairyTimeout += dt;
+      // Pixi.bg.alpha = 1;
+      // Pixi.bg.tint =
+      //   0xffffff -
+      //   0x00ffff *
+      //     (1 -
+      //       Math.abs(
+      //         (this.gettingHairyTimeout % this.gettingHairyPulseSpeed) * 2 -
+      //           this.gettingHairyPulseSpeed
+      //       ) /
+      //         this.gettingHairyPulseSpeed);
+    } else {
+      // Background.reset();
     }
     if (this.ghouls.length > ghoulCountGameOver) {
       this.gameOver;

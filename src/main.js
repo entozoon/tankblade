@@ -3,14 +3,25 @@ import Hero from "./entities/Hero";
 import GhoulFactory from "./engines/GhoulFactory";
 import { waveChange } from "./config";
 
-let start = Date.now(), // <- reset to restart game
+let start = Date.now(), // <- reset to restart waves
   then = Date.now();
+
+const gameOver = () => {
+  console.error("Game over..");
+  start = Date.now();
+  ghoulFactory.reboot();
+};
+setTimeout(() => {
+  console.log("(Automatic gameover after 60 seconds for testing!)");
+  gameOver();
+}, 60000);
 
 const hero = new Hero();
 const ghoulFactory = new GhoulFactory({
   timeoutStart: 2000,
   timeoutEnd: 100,
-  hero
+  hero,
+  gameOver
 });
 
 // Shove a temporary class on game for dev reasons

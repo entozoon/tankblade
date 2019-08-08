@@ -5,7 +5,7 @@ import { randomOutsidePerimeter } from "../lib/utilities";
 import { ghoulCountGettingHairy, ghoulCountGameOver } from "../config";
 
 export default class {
-  constructor({ timeoutStart, timeoutEnd, hero }) {
+  constructor({ timeoutStart, timeoutEnd, hero, gameOver }) {
     this.timeout = timeoutStart;
     this.timeoutEnd = timeoutEnd;
     this.hero = hero;
@@ -16,6 +16,8 @@ export default class {
     this.gettingHairy = () => this.ghouls.length > ghoulCountGettingHairy;
     this.gettingHairyTimeout = 0;
     this.gettingHairyPulseSpeed = 500;
+    this.gameOver = gameOver;
+    this.reboot = this.reboot;
   }
   dieAtTheGhoulFactory(id) {
     const dyingGhoul = this.ghouls.filter(g => g.id === id)[0];
@@ -39,6 +41,11 @@ export default class {
         dieAtTheGhoulFactory: this.dieAtTheGhoulFactory.bind(this)
       })
     );
+  }
+  reboot() {
+    console.log("GhoulFactory reboot..");
+    this.ghouls.forEach(g => g.spriteRemove());
+    this.ghouls = [];
   }
   update(dt, wave) {
     // Create ghouls, at an appropriate speed
@@ -68,7 +75,7 @@ export default class {
               this.gettingHairyPulseSpeed);
     }
     if (this.ghouls.length > ghoulCountGameOver) {
-      console.error("Game over?");
+      this.gameOver;
     }
 
     this.ghouls.forEach(g => g.update(dt));

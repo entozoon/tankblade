@@ -1,12 +1,12 @@
 import Pixi from "../engines/Pixi";
 import Bloodener from "../effects/Bloodener";
+import Hero from "../entities/Hero";
 
 export default class {
-  constructor({ id, hp, dieEntity, hurtPause, hero }) {
+  constructor({ id, hp, dieEntity, hurtPause }) {
     this.hp = hp;
     this.dieEntity = dieEntity;
     this.hurtPause = hurtPause;
-    this.hero = hero;
     this.die = this.die;
     this.bleed = this.bleed;
     this.hurt = this.hurt;
@@ -19,11 +19,11 @@ export default class {
     this.dieEntity();
   }
   bleed() {
-    if (!this.hero || this.hurting) return;
+    if (!Hero || this.hurting) return;
 
     // console.time();
     for (let i = 0; i < 25; ++i) {
-      const blood = Bloodener.newBlood(this.position, this.hero.position);
+      const blood = Bloodener.newBlood(this.position, Hero.position);
       this.bloods.push(blood);
       setTimeout(() => {
         Bloodener.particleContainer.removeChild(blood);

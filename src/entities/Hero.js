@@ -6,12 +6,13 @@ import Controllable from "../behaviours/Controllable";
 import EdgeBouncer from "../behaviours/EdgeBouncer";
 import Hurter from "../behaviours/Hurter";
 import { poses } from "../poses/hero";
+import { scoreText } from "../lib/text";
 
-export default class {
+class Hero {
   constructor() {
     this.width = 12;
     this.height = 6;
-    this.points = 0;
+    this.score = 0;
     Object.assign(
       this,
       new Sprite({
@@ -41,21 +42,30 @@ export default class {
   dieEntity() {
     // Can't currently get hurt, as such, so..
   }
-  heroSeekerCollision(heroSeeker) {
-    if (heroSeeker.hurting) return;
+  get score() {
+    return this._score;
+  }
+  set score(value) {
+    this._score = value;
+    // Also update the scoreText sprite
+    scoreText.text = `${value}⭐`;
+  }
+  seekerCollision(seeker) {
+    if (seeker.hurting) return;
 
-    this.points += 1; // *
-    if (Pixi.pointsText) {
-      Pixi.pointsText.text = `${this.points}⭐`;
-    }
+    this.score += 1; // *
     if (!this.hurting) {
       // Hacking the hurter mechanic to stop it spazzing bounce thrusts
       this.setThrust({
-        x: heroSeeker.thrust.x * 2,
-        y: heroSeeker.thrust.y * 2
+        x: seeker.thrust.x * 2,
+        y: seeker.thrust.y * 2
       });
     }
     this.hurt(0);
+  }
+  reset() {
+    this.score = 0;
+    this.hp = 100;
   }
   update(dt) {
     if (!this.constructed) return;
@@ -66,3 +76,4 @@ export default class {
     this.hurterUpdate(dt);
   }
 }
+export default new Hero();

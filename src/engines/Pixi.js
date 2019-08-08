@@ -1,11 +1,12 @@
 import * as PIXI from "pixi.js";
 import FontFaceObserver from "FontFaceObserver";
-import { pointsText } from "../lib/text";
+import { scoreText, centerText } from "../lib/text";
 
 const fontObserver = new FontFaceObserver("uni_05_53");
 
 class Pixi {
   constructor() {
+    this.ready = false;
     Object.assign(this, PIXI);
 
     // Sack antialiasing off with renderer settings and CSS
@@ -13,7 +14,7 @@ class Pixi {
     this.settings.RENDER_OPTIONS.antialias = false;
     this.settings.SORTABLE_CHILDREN = true; // Enable zIndex
 
-    // this.settings.PRECISION_FRAGMENT = "highp"; // trying to improve text rendering
+    this.settings.PRECISION_FRAGMENT = "highp"; // trying to improve text rendering
 
     this.rendererBgBlood = this.autoDetectRenderer({
       width: 64,
@@ -39,10 +40,11 @@ class Pixi {
     this.containerBgBlood = new PIXI.Container();
     this.containerMain = new PIXI.Container();
 
-    // Points HUD
+    // HUD
     fontObserver.load().then(() => {
-      this.pointsText = pointsText();
-      this.containerMain.addChild(this.pointsText);
+      centerText.create();
+      scoreText.create();
+      this.ready = true;
     });
   }
   addBackground() {}

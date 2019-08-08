@@ -1,15 +1,15 @@
 import Pixi from "../engines/Pixi";
 import Ghoul from "../entities/Ghoul";
+import Hero from "../entities/Hero";
 import { constrain } from "../lib/utilities";
 import { randomOutsidePerimeter } from "../lib/utilities";
 import { ghoulCountGettingHairy, ghoulCountGameOver } from "../config";
 import Background from "../effects/Background";
 
 export default class {
-  constructor({ timeoutStart, timeoutEnd, hero, gameOver }) {
+  constructor({ timeoutStart, timeoutEnd, gameOver }) {
     this.timeout = timeoutStart;
     this.timeoutEnd = timeoutEnd;
-    this.hero = hero;
     this.ghouls = [];
     // this.waveTimer = 0;
     this.makeCount = 0;
@@ -18,7 +18,7 @@ export default class {
     this.gettingHairyChanging = false;
     ghoulCountGettingHairy;
     this.gameOver = gameOver;
-    this.reboot = this.reboot;
+    this.reset = this.reset;
   }
   dieAtTheGhoulFactory(id) {
     const dyingGhoul = this.ghouls.filter(g => g.id === id)[0];
@@ -37,14 +37,11 @@ export default class {
         position: randomOutsidePerimeter(),
         thrustPower: 0.0025 + Math.random() * 0.004,
         thrustLimit: 0.01 + Math.random() * 0.01,
-        // Just gonna expose the whole thing, it's doing my head in
-        hero: this.hero,
         dieAtTheGhoulFactory: this.dieAtTheGhoulFactory.bind(this)
       })
     );
   }
-  reboot() {
-    console.log("GhoulFactory reboot..");
+  reset() {
     this.ghouls.forEach(g => g.spriteRemove());
     this.ghouls = [];
   }
@@ -68,9 +65,9 @@ export default class {
       Background.reset(); // Only run the once
       Background.gettingHairy = false;
     }
-
+    // console.log(this.ghouls.length);
     if (this.ghouls.length > ghoulCountGameOver) {
-      this.gameOver;
+      this.gameOver();
     }
 
     this.ghouls.forEach(g => g.update(dt));

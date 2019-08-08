@@ -41,11 +41,12 @@ class Pixi {
     this.containerMain = new PIXI.Container();
 
     // HUD
-    fontObserver.load().then(() => {
-      centerText.create();
-      scoreText.create();
-      this.ready = true;
-    });
+    // Not currently using loaded fonts anymore; base64 embed
+    // fontObserver.load().then(() => {
+    // centerText.create();
+    // scoreText.create();
+    this.ready = true;
+    // });
   }
   addBackground() {}
   render() {

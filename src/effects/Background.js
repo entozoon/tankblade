@@ -29,7 +29,7 @@ class Background {
   }
   reset() {
     // Allow it to draw fully opaquely for a short amount of time
-    this.sprite.alpha = 1;
+    this.sprite.alpha = 0.1; // 1 is ideal but game load fade is nice
     this.sprite.tint = 0xffffff;
     clearTimeout(this.resetTimeout);
     this.resetTimeout = setTimeout(() => {

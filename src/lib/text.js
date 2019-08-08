@@ -1,18 +1,24 @@
 import Pixi from "../engines/Pixi";
 
 class Text {
-  get text() {
-    return (this._text && this._text.text) || this.default;
-  }
   set text(string) {
     if (this._text) this._text.text = string;
   }
+  get text() {
+    return (this._text && this._text.text) || this.default;
+  }
+  set scale(value) {
+    this._text.scale = value;
+  }
+  // get scale() {
+  //   return (this._text && this._text.scale) || null;
+  // }
 }
 
 class ScoreText extends Text {
   constructor() {
     super();
-    this.default = "0⭐";
+    this.default = "";
   }
   // After fonts are loaded..
   create() {

@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "uni_05_53";
+  src: url("/fonts/uni0553-webfont-webfont.woff2") format("woff2"),
+    url("/fonts/uni0553-webfont-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  // Trying everything to prevent Safari blurring
+  -webkit-font-smoothing: none;
+  image-rendering: pixelated;
+  transform-origin: center center;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -ms-interpolation-mode: nearest-neighbor;
+}
 body {
   margin: 0;
   display: flex;
@@ -5,18 +21,20 @@ body {
   align-items: center;
   background: black;
   height: 100vh;
+  font-family: "uni_05_53";
 }
 #game {
   position: relative;
   width: 64px;
   height: 64px;
-  transform-origin: center center;
 }
 /*! Scale up, to some extent, preserving pixel size and keeping within viewport */
 @for $i from 2 through 11 {
   @media (min-width: calc(64px * #{$i})) and (min-height: calc(64px * #{$i})) {
     #game {
-      transform: scale(#{$i});
+      // transform: scale(#{$i});
+      width: 64px * $i;
+      height: 64px * $i;
     }
   }
 }
@@ -27,7 +45,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: 0 0 30px 1px #232323;
+    box-shadow: 0 0 30px 1px rgba(35, 35, 35, 0.5);
     // Sack antialiasing off with renderer settings and CSS
     image-rendering: optimizeSpeed;
     image-rendering: -moz-crisp-edges;

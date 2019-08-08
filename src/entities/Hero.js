@@ -1,3 +1,4 @@
+import Pixi from "../engines/Pixi";
 import Sprite from "../engines/Sprite";
 // Mover and Controllable are dependant on each other (because I'm not good enough at composition yet)
 import Mover from "../behaviours/Mover";
@@ -35,7 +36,6 @@ export default class {
     // this.setThrust = this.setThrust;
     this.setPosition({ y: 32, x: 32 });
     this.setPose("default");
-
     this.constructed = true;
   }
   dieEntity() {
@@ -43,7 +43,11 @@ export default class {
   }
   heroSeekerCollision(heroSeeker) {
     if (heroSeeker.hurting) return;
-    this.points += 5; // *
+
+    this.points += 1; // *
+    if (Pixi.pointsText) {
+      Pixi.pointsText.text = `${this.points}⭐`;
+    }
     if (!this.hurting) {
       // Hacking the hurter mechanic to stop it spazzing bounce thrusts
       this.setThrust({

@@ -2,6 +2,7 @@ import Pixi from "../engines/Pixi";
 import Ghoul from "../entities/Ghoul";
 import { constrain } from "../lib/utilities";
 import { randomOutsidePerimeter } from "../lib/utilities";
+import { ghoulCountGettingHairy, ghoulCountGameOver } from "../config";
 
 export default class {
   constructor({ timeoutStart, timeoutEnd, hero }) {
@@ -12,6 +13,9 @@ export default class {
     // this.waveTimer = 0;
     this.makeCount = 0;
     this.makeTimeout = 0;
+    this.gettingHairy = () => this.ghouls.length > ghoulCountGettingHairy;
+    this.gettingHairyTimeout = 0;
+    this.gettingHairyPulseSpeed = 500;
   }
   dieAtTheGhoulFactory(id) {
     const dyingGhoul = this.ghouls.filter(g => g.id === id)[0];
@@ -37,47 +41,36 @@ export default class {
     );
   }
   update(dt, wave) {
-    // this.waveTimer += dt;
-    // this.timeout -= dt * 0.05; // hacky but yeah
-    // this.wave = Math.floor(this.waveTimer / 1000);
-    // this.timeout =
-    //   this.timeout < this.timeoutEnd ? this.timeoutEnd : this.timeout; // endgame
-
-    // this.wave = Math.floor(this.waveTimer / this.timeout);
-    // this.makeTimeout = 1000
-    // this.wave = 300;
-
-    // Turns out, having a natural feeling wave of baddiez isn't easy
+    // Create ghouls, at an appropriate speed
+    // (turns out, having a natural feeling wave of baddiez isn't easy..)
     const makeFrequency = constrain(
       5000 - (Math.pow(wave, 0.1) - 1) * 20000,
       50
     );
-
     this.makeTimeout += dt;
     if (!this.ghouls.length || this.makeTimeout > makeFrequency) {
       this.make(++this.makeCount);
       this.makeTimeout = 0;
     }
 
-    // if (this.ghouls
-    // if (this.ghouls.length > 0)
-    //   console.log(this.ghouls[this.ghouls.length - 1].id);
-    // if (
-    //   this.ghouls.length == 0 ||
-    //   this.ghouls[this.ghouls.length - 1].id < this.wave
-    // ) {
-    //   console.log(this.wave, this.ghouls.length, dt);
-    //   this.make(this.wave);
-    // }
+    // Flash red if we're in trouble
+    if (this.gettingHairy()) {
+      this.gettingHairyTimeout += dt;
+      Pixi.bg.alpha = 1;
+      Pixi.bg.tint =
+        0xffffff -
+        0x00ffff *
+          (1 -
+            Math.abs(
+              (this.gettingHairyTimeout % this.gettingHairyPulseSpeed) * 2 -
+                this.gettingHairyPulseSpeed
+            ) /
+              this.gettingHairyPulseSpeed);
+    }
+    if (this.ghouls.length > ghoulCountGameOver) {
+      console.error("Game over?");
+    }
 
     this.ghouls.forEach(g => g.update(dt));
-
-    if (this.ghouls.length > 200) {
-      console.error("Game over!");
-    }
-
-    if (this.ghouls.length > 1) {
-      Pixi.bg.tint = 0x000000;
-    }
   }
 }

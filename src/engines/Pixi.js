@@ -1,4 +1,8 @@
 import * as PIXI from "pixi.js";
+import FontFaceObserver from "FontFaceObserver";
+import { pointsText } from "../lib/text";
+
+const fontObserver = new FontFaceObserver("uni_05_53");
 
 class Pixi {
   constructor() {
@@ -8,6 +12,8 @@ class Pixi {
     this.settings.SCALE_MODE = this.SCALE_MODES.NEAREST;
     this.settings.RENDER_OPTIONS.antialias = false;
     this.settings.SORTABLE_CHILDREN = true; // Enable zIndex
+
+    // this.settings.PRECISION_FRAGMENT = "highp"; // trying to improve text rendering
 
     this.rendererBgBlood = this.autoDetectRenderer({
       width: 64,
@@ -24,7 +30,6 @@ class Pixi {
       height: 64,
       antialias: false,
       resolution: 1,
-      // backgroundColor: 0x222222,
       transparent: true
     });
 
@@ -43,6 +48,12 @@ class Pixi {
       this.containerBgBlood.removeChild(this.bg); // after first render
       this.bg.alpha = 0.02; // bloodslick
     }, 500);
+
+    // Points HUD
+    fontObserver.load().then(() => {
+      this.pointsText = pointsText();
+      this.containerMain.addChild(this.pointsText);
+    });
   }
   render() {
     this.containerBgBlood.addChild(this.bg);

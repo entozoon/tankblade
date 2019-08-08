@@ -1,8 +1,8 @@
 import Pixi from "./engines/Pixi";
 import Hero from "./entities/Hero";
 import GhoulFactory from "./engines/GhoulFactory";
+import { waveChange } from "./config";
 
-const waveChange = 4000;
 let start = Date.now(), // <- reset to restart game
   then = Date.now();
 
@@ -19,6 +19,14 @@ document
   .classList.add(
     window.location.hostname === "localhost" ? "-localhost" : null
   );
+
+var ua = navigator.userAgent.toLowerCase();
+if (ua.indexOf("safari") != -1 && ua.indexOf("chrome") <= -1) {
+  // document.body.classList.add("-safari");
+  alert(
+    "Please use Chrome if possible, as the pixel rendering gets blurred on Safari."
+  );
+}
 
 const loop = () => {
   const dt = Date.now() - then,

@@ -29,6 +29,9 @@ class Bloodener {
     // Gotta make some optimisations somehow..
     const r1 = Math.random(),
       r2 = Math.random();
+    // Scale before transforms, or it get positive bias
+    blood.scale.x = 0.2 + r2 * 0.5;
+    blood.scale.y = 0.2 + r1 * 0.5;
     blood.x = posStart.x;
     blood.y = posStart.y;
     blood.thrust = {
@@ -36,8 +39,6 @@ class Bloodener {
       y: r1 * 6 * Math.sign(r1 - 0.5) + r2 * 3 * (posStart.y - posEnd.y)
     };
     blood.tint = 0x333333 + r1 * 0x999999;
-    blood.scale.x = 0.2 + r2 * 0.5;
-    blood.scale.y = 0.2 + r1 * 0.5;
     blood.lifespan = 750 + r2 * 1250;
     blood.lifeFactor = 1;
     // blood.zIndex = 1000;

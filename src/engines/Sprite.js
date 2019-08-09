@@ -61,7 +61,8 @@ export default class {
     this.sprite.texture = thisPose.frames[0].texture;
 
     // Pump adrenaline into the interval time
-    let interval = thisPose.interval - this.adrenaline;
+    let interval = thisPose.interval;
+    if (thisPose.adrenalineEnabled) interval -= this.adrenaline;
 
     // Set the animation going at the desired interval speed
     // I'm pretty sure intervals aren't the best for this, and that

@@ -1,30 +1,31 @@
 import { within } from "../lib/utilities";
+
 export default class {
-  constructor({ hero, bounceThrust }) {
-    this.hero = hero;
+  constructor({ target, bounceThrust }) {
+    this.target = target;
     this.bounceThrust = bounceThrust;
-    this.heroSeekerUpdate = this.heroSeekerUpdate;
+    this.seekerUpdate = this.seekerUpdate;
     // Why do I have to do this? I mean, these .. they aren't exposed
     this.thrustToward = this.thrustToward;
     this.thrustAway = this.thrustAway;
-    this.bounceOffHero = this.bounceOffHero;
+    this.bounceOffTarget = this.bounceOffTarget;
     this.targetOffset = {
       x: Math.random() * 14 - 7,
       y: Math.random() * 10 - 5
     };
   }
   thrustToward(b) {
-    let heroOffset = {
+    let targetOffset = {
       x: b.position.x + this.targetOffset.x - this.position.x,
       y: b.position.y + this.targetOffset.y - this.position.y
     };
     const thrustNew = {
-      x: Math.sign(heroOffset.x) * this.thrustPower,
-      y: Math.sign(heroOffset.y) * this.thrustPower
+      x: Math.sign(targetOffset.x) * this.thrustPower,
+      y: Math.sign(targetOffset.y) * this.thrustPower
     };
     // Reduce up down thrust spazzing when zeroing in on b, on each axis
-    thrustNew.x = Math.abs(heroOffset.x) < 0.1 ? 0 : thrustNew.x;
-    thrustNew.y = Math.abs(heroOffset.y) < 0.1 ? 0 : thrustNew.y;
+    thrustNew.x = Math.abs(targetOffset.x) < 0.1 ? 0 : thrustNew.x;
+    thrustNew.y = Math.abs(targetOffset.y) < 0.1 ? 0 : thrustNew.y;
 
     this.setThrust(thrustNew);
   }
@@ -43,16 +44,16 @@ export default class {
       });
     }
   }
-  bounceOffHero() {
-    if (within(this, this.hero)) {
-      this.hero.heroSeekerCollision(this);
-      this.thrustAway(this.hero);
+  bounceOffTarget() {
+    if (within(this, this.target)) {
+      this.target.seekerCollision(this);
+      this.thrustAway(this.target);
       this.hurt(10);
     }
   }
-  heroSeekerUpdate() {
-    this.thrustToward(this.hero);
-    this.bounceOffHero();
+  seekerUpdate() {
+    this.thrustToward(this.target);
+    this.bounceOffTarget();
     // debugger;
   }
 }

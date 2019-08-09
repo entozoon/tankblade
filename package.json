@@ -1,18 +1,22 @@
 {
   "name": "tankblade",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
-    "start": "webpack-dev-server --mode=development --open"
+    "start": "webpack-dev-server --mode=development --open",
+    "postinstall": "start _butler/butler login",
+    "preitch": "npm run build",
+    "itch": "cd _butler && butler.exe push ../build entozoon/tankblade:win-linux-mac-android"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/entozoon/tankblade.git"
   },
-  "author": "",
+  "author": "MichaelCook.tech",
   "license": "ISC",
+  "keywords": "LOWREZJAM",
   "bugs": {
     "url": "https://github.com/entozoon/tankblade/issues"
   },
@@ -31,5 +35,6 @@
     "webpack": "^4.39.0",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.7.2"
-  }
+  },
+  "devDependencies": {}
 }

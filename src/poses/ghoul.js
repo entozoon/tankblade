@@ -2,6 +2,7 @@ export const poses = [
   {
     name: "default",
     interval: 400,
+    adrenalineEnabled: true,
     frames: [
       {
         x: 0,
@@ -20,6 +21,7 @@ export const poses = [
   {
     name: "back",
     interval: 400,
+    adrenalineEnabled: true,
     frames: [
       {
         x: 0,

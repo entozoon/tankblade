@@ -1,10 +1,16 @@
 # Tankblade
 
-# [Check it out!](https://tankblade.netlify.com)
+# [Check it out here!](https://entozoon.itch.io/tankblade)
+
+A game made for #LOWREZJAM 2019
 
 ## Dev
 
-Pixi.js + Webpack 3 compiling and structured in such an ace way that it almost pushed the voices out for a split second.
-
     npm i
     npm start
+
+## Deploy
+
+Deployed to [itch.io](https://entozoon.itch.io/tankblade) using [Butler](https://fasterthanlime.itch.io/butler) which is to be downloaded into `/_butler`, then wham a cheeky
+
+    npm run itch

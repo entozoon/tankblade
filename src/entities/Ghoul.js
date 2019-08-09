@@ -1,7 +1,8 @@
 import Sprite from "../engines/Sprite";
 import Mover from "../behaviours/Mover";
-import HeroSeeker from "../behaviours/HeroSeeker";
 import Hurter from "../behaviours/Hurter";
+import Seeker from "../behaviours/Seeker";
+import Hero from "../entities/Hero";
 import { poses } from "../poses/ghoul";
 import { constrain } from "../lib/utilities";
 
@@ -12,19 +13,17 @@ export default class {
     position,
     thrustPower,
     thrustLimit,
-    hero,
     dieAtTheGhoulFactory
   }) {
     this.id = id;
     this.width = 8;
     this.height = 6;
     this.dieAtTheGhoulFactory = dieAtTheGhoulFactory;
-    this.hero = hero;
     Object.assign(
       this,
       new Sprite({
         spriteSheet: "ghoul.png",
-        adrenaline: constrain(thrustPower * 50000, 0, 100),
+        adrenaline: constrain(thrustPower * 50000, 0, 300),
         poses
       }),
       new Mover({
@@ -33,13 +32,12 @@ export default class {
         decelerationSpeed: 0.0001,
         minThrust: 0.004
       }),
-      new HeroSeeker({ hero, bounceThrust: 0.05 }),
+      new Seeker({ target: Hero, bounceThrust: 0.05 }),
       new Hurter({
         id,
         hp,
         hurtPause: 1000 + Math.random() * 2000,
-        dieEntity: this.dieEntity.bind(this),
-        hero
+        dieEntity: this.dieEntity.bind(this)
       })
     );
     this.setPosition(position);
@@ -79,9 +77,9 @@ export default class {
   }
   update(dt) {
     if (!this.constructed) return;
-    this.setBodyLanguage({ target: this.hero });
+    this.setBodyLanguage({ target: Hero });
     this.moverUpdate(dt);
-    this.heroSeekerUpdate(dt);
+    this.seekerUpdate(dt);
     this.spriteUpdate(dt);
     this.hurterUpdate(dt);
     // debugger;

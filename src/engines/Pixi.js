@@ -1,11 +1,12 @@
 import * as PIXI from "pixi.js";
 import FontFaceObserver from "FontFaceObserver";
-import { pointsText } from "../lib/text";
+import { scoreText, centerText } from "../lib/text";
 
 const fontObserver = new FontFaceObserver("uni_05_53");
 
 class Pixi {
   constructor() {
+    this.ready = false;
     Object.assign(this, PIXI);
 
     // Sack antialiasing off with renderer settings and CSS
@@ -13,7 +14,7 @@ class Pixi {
     this.settings.RENDER_OPTIONS.antialias = false;
     this.settings.SORTABLE_CHILDREN = true; // Enable zIndex
 
-    // this.settings.PRECISION_FRAGMENT = "highp"; // trying to improve text rendering
+    this.settings.PRECISION_FRAGMENT = "highp"; // trying to improve text rendering
 
     this.rendererBgBlood = this.autoDetectRenderer({
       width: 64,
@@ -39,27 +40,18 @@ class Pixi {
     this.containerBgBlood = new PIXI.Container();
     this.containerMain = new PIXI.Container();
 
-    // Background
-    this.bg = new PIXI.Sprite(new PIXI.Texture.from("bg.png"));
-
-    this.containerBgBlood.addChild(this.bg);
-    this.bg.alpha = 1;
-    setTimeout(() => {
-      this.containerBgBlood.removeChild(this.bg); // after first render
-      this.bg.alpha = 0.02; // bloodslick
-    }, 500);
-
-    // Points HUD
-    fontObserver.load().then(() => {
-      this.pointsText = pointsText();
-      this.containerMain.addChild(this.pointsText);
-    });
+    // HUD
+    // Not currently using loaded fonts anymore; base64 embed
+    // fontObserver.load().then(() => {
+    // centerText.create();
+    // scoreText.create();
+    this.ready = true;
+    // });
   }
+  addBackground() {}
   render() {
-    this.containerBgBlood.addChild(this.bg);
     this.rendererBgBlood.render(this.containerBgBlood);
     this.rendererMain.render(this.containerMain);
   }
 }
-
 export default new Pixi(); // Single instance

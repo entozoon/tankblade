@@ -1,23 +1,24 @@
 import Pixi from "../engines/Pixi";
 import Ghoul from "../entities/Ghoul";
+import Hero from "../entities/Hero";
 import { constrain } from "../lib/utilities";
 import { randomOutsidePerimeter } from "../lib/utilities";
 import { ghoulCountGettingHairy, ghoulCountGameOver } from "../config";
+import Background from "../effects/Background";
 
 export default class {
-  constructor({ timeoutStart, timeoutEnd, hero, gameOver }) {
+  constructor({ timeoutStart, timeoutEnd, gameOver }) {
     this.timeout = timeoutStart;
     this.timeoutEnd = timeoutEnd;
-    this.hero = hero;
     this.ghouls = [];
     // this.waveTimer = 0;
     this.makeCount = 0;
     this.makeTimeout = 0;
     this.gettingHairy = () => this.ghouls.length > ghoulCountGettingHairy;
-    this.gettingHairyTimeout = 0;
-    this.gettingHairyPulseSpeed = 500;
+    this.gettingHairyChanging = false;
+    ghoulCountGettingHairy;
     this.gameOver = gameOver;
-    this.reboot = this.reboot;
+    this.reset = this.reset;
   }
   dieAtTheGhoulFactory(id) {
     const dyingGhoul = this.ghouls.filter(g => g.id === id)[0];
@@ -36,14 +37,11 @@ export default class {
         position: randomOutsidePerimeter(),
         thrustPower: 0.0025 + Math.random() * 0.004,
         thrustLimit: 0.01 + Math.random() * 0.01,
-        // Just gonna expose the whole thing, it's doing my head in
-        hero: this.hero,
         dieAtTheGhoulFactory: this.dieAtTheGhoulFactory.bind(this)
       })
     );
   }
-  reboot() {
-    console.log("GhoulFactory reboot..");
+  reset() {
     this.ghouls.forEach(g => g.spriteRemove());
     this.ghouls = [];
   }
@@ -62,20 +60,14 @@ export default class {
 
     // Flash red if we're in trouble
     if (this.gettingHairy()) {
-      this.gettingHairyTimeout += dt;
-      Pixi.bg.alpha = 1;
-      Pixi.bg.tint =
-        0xffffff -
-        0x00ffff *
-          (1 -
-            Math.abs(
-              (this.gettingHairyTimeout % this.gettingHairyPulseSpeed) * 2 -
-                this.gettingHairyPulseSpeed
-            ) /
-              this.gettingHairyPulseSpeed);
+      Background.gettingHairy = true;
+    } else if (Background.gettingHairy) {
+      Background.reset(); // Only run the once
+      Background.gettingHairy = false;
     }
+    // console.log(this.ghouls.length);
     if (this.ghouls.length > ghoulCountGameOver) {
-      this.gameOver;
+      this.gameOver();
     }
 
     this.ghouls.forEach(g => g.update(dt));

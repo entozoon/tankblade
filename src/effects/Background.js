@@ -7,12 +7,15 @@ class Background {
     this.gettingHairyTimeout = 0;
   }
   create() {
-    this.sprite = new Pixi.Sprite(new Pixi.Texture.from("bg.png"));
-    // Pixi.containerBgBlood.addChild(this.sprite);
-    // // this.sprite.alpha = 1; // first render
-    // setTimeout(() => {
-    //   Pixi.containerBgBlood.removeChild(this.sprite); // arbitrarily after first render
-    // }, 500);
+    return new Promise(resolve => {
+      this.sprite = new Pixi.Sprite(new Pixi.Texture.from("bg.png"));
+      // Pixi.containerBgBlood.addChild(this.sprite);
+      // // this.sprite.alpha = 1; // first render
+      // setTimeout(() => {
+      //   Pixi.containerBgBlood.removeChild(this.sprite); // arbitrarily after first render
+      // }, 500);
+      resolve();
+    });
   }
   pulse(dt) {
     this.gettingHairyTimeout += dt;

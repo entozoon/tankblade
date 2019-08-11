@@ -29,6 +29,7 @@
     "fontfaceobserver": "^2.1.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.12.0",
+    "pixi-sound": "^3.0.3",
     "pixi.js": "^5.1.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^1.0.0",

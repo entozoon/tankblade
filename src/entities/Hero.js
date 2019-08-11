@@ -7,6 +7,7 @@ import EdgeBouncer from "../behaviours/EdgeBouncer";
 import Hurter from "../behaviours/Hurter";
 import { poses } from "../poses/hero";
 import { scoreText } from "../lib/text";
+import Sound from "../effects/Sound";
 
 class Hero {
   constructor() {
@@ -52,6 +53,8 @@ class Hero {
   }
   seekerCollision(seeker) {
     if (seeker.hurting) return;
+
+    Sound.play("bounce");
 
     this.score += 1; // *
     if (!this.hurting) {

@@ -1,9 +1,11 @@
 import Pixi from "../engines/Pixi";
 import { gettingHairyPulseSpeed } from "../config";
+import Sound from "../effects/Sound";
 
 class Background {
   constructor() {
     this.gettingHairy = false;
+    this.gettingHairyStore = false;
     this.gettingHairyTimeout = 0;
   }
   create() {
@@ -43,8 +45,21 @@ class Background {
     if (elapsed < 100) {
       this.reset();
     }
-
-    if (this.gettingHairy) this.pulse(dt);
+    // Continous
+    if (this.gettingHairy) {
+      this.pulse(dt);
+    }
+    // Instantaneous
+    if (this.gettingHairy != this.gettingHairyStore) {
+      this.gettingHairyStore = this.gettingHairy;
+      if (this.gettingHairy) {
+        Sound.stop("bgm");
+        Sound.play("hairy", { loop: true });
+      } else {
+        Sound.play("bgm", { loop: true });
+        Sound.stop("hairy");
+      }
+    }
 
     // Optimisation - This doesn't have to be all that frequent:
     Pixi.containerBgBlood.addChild(this.sprite); // Re-add the semitransparent bg

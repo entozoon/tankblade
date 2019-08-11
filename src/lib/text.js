@@ -50,7 +50,6 @@ class CenterText extends Text {
     this.default = "";
   }
   create() {
-    console.log("text create");
     return new Promise(resolve => {
       this._text = new Pixi.Text(this.text, {
         fontFamily: '"uni_05_53", Helvetica, Arial, sans-serif',
@@ -70,7 +69,6 @@ class CenterText extends Text {
       this._text.zIndex = 999;
       this._text.alpha = 0.75;
       Pixi.containerMain.addChild(this._text);
-      console.log("text created");
       resolve();
     });
   }

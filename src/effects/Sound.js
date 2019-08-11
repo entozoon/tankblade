@@ -4,13 +4,12 @@ import Pixi from "../engines/Pixi";
 const soundResources = {
   intro: "intro.mp3",
   bgm: "bgm.mp3",
-  bounce: "bounce.mp3"
+  bounce: "bounce.mp3",
+  hairy: "hairy.mp3"
 };
 
 class Sound {
-  constructor() {
-    this.create =
-  }
+  constructor() {}
   create() {
     return new Promise(resolve => {
       // Initialise sound loader
@@ -37,8 +36,11 @@ class Sound {
       // });
     });
   }
-  play(track) {
-    this.sounds[track].play();
+  play(track, options) {
+    this.sounds[track].play(options);
+  }
+  stop(track, options) {
+    this.sounds[track].stop();
   }
 }
 export default new Sound(); // Single instance

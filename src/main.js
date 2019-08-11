@@ -3,18 +3,12 @@ import Hero from "./entities/Hero";
 import GhoulFactory from "./engines/GhoulFactory";
 import { waveChange } from "./config";
 import Background from "./effects/Background";
-import Sound from "./effects/Sound";
 import { centerText, scoreText } from "./lib/text";
+import Sound from "./effects/Sound";
 
 // Wait until Pixi renderers are ready and fonts loaded
 Pixi.create().then(() => {
-  // setup.then(intro).then(begin);
-  setup
-    .then(result => {
-      console.log(result);
-      return intro();
-    })
-    .then(begin);
+  setup.then(intro).then(begin);
 });
 
 const setup = Promise.all([
@@ -36,15 +30,16 @@ const oneShotAnimation = () => {
   if (a >= 49) cancelAnimationFrame(id);
 };
 
-const intro = new Promise(resolve => {
-  console.log("intro");
-  centerText.text = "TANKBLADE";
-  Sound.play("intro");
-  oneShotAnimation();
-  setTimeout(() => {
-    resolve();
-  }, 2000);
-});
+const intro = () =>
+  new Promise(resolve => {
+    centerText.text = "TANKBLADE";
+    Sound.play("intro");
+    oneShotAnimation();
+    setTimeout(() => {
+      Sound.stop("intro");
+      resolve();
+    }, 2000);
+  });
 
 const gameOver = () => {
   // slow speed of BGM ?
@@ -65,7 +60,7 @@ const ghoulFactory = new GhoulFactory({
 });
 
 const begin = () => {
-  console.log("begin");
+  Sound.play("bgm", { loop: true });
   centerText.text = null;
   loop();
 };

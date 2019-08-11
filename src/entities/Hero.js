@@ -54,11 +54,15 @@ class Hero {
   seekerCollision(seeker) {
     if (seeker.hurting) return;
 
-    Sound.play("bounce");
+    // bounce1,2,3 randomly with an even distrubution
+    // On reflection, I'm not keep on bounce3..
+    Sound.play(`bounce${Math.floor(Math.random() * 2) + 1}`);
 
     this.score += 1; // *
+
     if (!this.hurting) {
       // Hacking the hurter mechanic to stop it spazzing bounce thrusts
+      // (that's what she said)
       this.setThrust({
         x: seeker.thrust.x * 2,
         y: seeker.thrust.y * 2

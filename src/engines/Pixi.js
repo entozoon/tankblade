@@ -1,4 +1,8 @@
 import * as PIXI from "pixi.js";
+
+// require("pixi-sound");
+import pixiSound from "pixi-sound";
+
 import FontFaceObserver from "FontFaceObserver";
 import { scoreText, centerText } from "../lib/text";
 
@@ -6,8 +10,8 @@ const fontObserver = new FontFaceObserver("uni_05_53");
 
 class Pixi {
   constructor() {
-    this.ready = false;
     Object.assign(this, PIXI);
+    this.sound = pixiSound;
 
     // Sack antialiasing off with renderer settings and CSS
     this.settings.SCALE_MODE = this.SCALE_MODES.NEAREST;
@@ -39,14 +43,11 @@ class Pixi {
 
     this.containerBgBlood = new PIXI.Container();
     this.containerMain = new PIXI.Container();
-
-    // HUD
-    // Not currently using loaded fonts anymore; base64 embed
-    // fontObserver.load().then(() => {
-    // centerText.create();
-    // scoreText.create();
-    this.ready = true;
-    // });
+  }
+  create() {
+    return new Promise(resolve => {
+      resolve();
+    });
   }
   addBackground() {}
   render() {

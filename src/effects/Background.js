@@ -1,18 +1,23 @@
 import Pixi from "../engines/Pixi";
 import { gettingHairyPulseSpeed } from "../config";
+import Sound from "../effects/Sound";
 
 class Background {
   constructor() {
     this.gettingHairy = false;
+    this.gettingHairyStore = false;
     this.gettingHairyTimeout = 0;
   }
   create() {
-    this.sprite = new Pixi.Sprite(new Pixi.Texture.from("bg.png"));
-    // Pixi.containerBgBlood.addChild(this.sprite);
-    // // this.sprite.alpha = 1; // first render
-    // setTimeout(() => {
-    //   Pixi.containerBgBlood.removeChild(this.sprite); // arbitrarily after first render
-    // }, 500);
+    return new Promise(resolve => {
+      this.sprite = new Pixi.Sprite(new Pixi.Texture.from("bg.png"));
+      // Pixi.containerBgBlood.addChild(this.sprite);
+      // // this.sprite.alpha = 1; // first render
+      // setTimeout(() => {
+      //   Pixi.containerBgBlood.removeChild(this.sprite); // arbitrarily after first render
+      // }, 500);
+      resolve();
+    });
   }
   pulse(dt) {
     this.gettingHairyTimeout += dt;
@@ -40,8 +45,21 @@ class Background {
     if (elapsed < 100) {
       this.reset();
     }
-
-    if (this.gettingHairy) this.pulse(dt);
+    // Continous
+    if (this.gettingHairy) {
+      this.pulse(dt);
+    }
+    // Instantaneous
+    if (this.gettingHairy != this.gettingHairyStore) {
+      this.gettingHairyStore = this.gettingHairy;
+      if (this.gettingHairy) {
+        Sound.stop("bgm");
+        Sound.play("hairy", { loop: true });
+      } else {
+        Sound.play("bgm", { loop: true });
+        Sound.stop("hairy");
+      }
+    }
 
     // Optimisation - This doesn't have to be all that frequent:
     Pixi.containerBgBlood.addChild(this.sprite); // Re-add the semitransparent bg

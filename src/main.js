@@ -4,24 +4,19 @@ import GhoulFactory from "./engines/GhoulFactory";
 import { waveChange } from "./config";
 import Background from "./effects/Background";
 import { centerText, scoreText } from "./lib/text";
+import Sound from "./effects/Sound";
 
-// Wait until Pizi renderers are ready and fonts loaded
-const readyInterval = setInterval(() => {
-  if (Pixi.ready) {
-    clearInterval(readyInterval);
-    setup();
-    intro();
-    setTimeout(() => {
-      begin();
-    }, 2000);
-  }
-}, 100);
+// Wait until Pixi renderers are ready and fonts loaded
+Pixi.create().then(() => {
+  setup.then(intro).then(begin);
+});
 
-const setup = () => {
-  Background.create();
-  centerText.create();
-  scoreText.create();
-};
+const setup = Promise.all([
+  Sound.create(),
+  Background.create(),
+  centerText.create(),
+  scoreText.create()
+]);
 
 let a = 0; // Avoids clasing up, simple way to whip up anims
 const oneShotAnimation = () => {
@@ -35,12 +30,19 @@ const oneShotAnimation = () => {
   if (a >= 49) cancelAnimationFrame(id);
 };
 
-const intro = () => {
-  centerText.text = "TANKBLADE";
-  oneShotAnimation();
-};
+const intro = () =>
+  new Promise(resolve => {
+    centerText.text = "TANKBLADE";
+    Sound.play("intro");
+    oneShotAnimation();
+    setTimeout(() => {
+      Sound.stop("intro");
+      resolve();
+    }, 2000);
+  });
 
 const gameOver = () => {
+  // slow speed of BGM ?
   centerText.text = "GAME OVER";
   setTimeout(() => {
     start = Date.now();
@@ -58,6 +60,7 @@ const ghoulFactory = new GhoulFactory({
 });
 
 const begin = () => {
+  Sound.play("bgm", { loop: true });
   centerText.text = null;
   loop();
 };

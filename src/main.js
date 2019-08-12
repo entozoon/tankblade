@@ -34,6 +34,7 @@ const intro = () =>
   new Promise(resolve => {
     centerText.text = "TANKBLADE";
     Sound.music("intro");
+    Sound.music("intro");
     oneShotAnimation();
     setTimeout(() => {
       Sound.stop("intro");
@@ -42,7 +43,8 @@ const intro = () =>
   });
 
 const gameOver = () => {
-  // slow speed of BGM ?
+  // Perhaps slow down the speed of bgm beforehand?
+  Sound.music("gameover");
   centerText.text = "GAME OVER";
   setTimeout(() => {
     start = Date.now();

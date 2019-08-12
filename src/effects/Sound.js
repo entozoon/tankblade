@@ -33,9 +33,11 @@ class Sound {
   }
   music(track) {
     if (enableSound) {
-      this.music.sound && this.music.sound.stop();
-      this.music = this.sounds[track];
-      this.music.play({ loop: true });
+      if (this.musicTrackPlaying) {
+        this.sounds[this.musicTrackPlaying].stop();
+      }
+      this.musicTrackPlaying = track;
+      this.sounds[track].play({ loop: true });
     }
   }
   effect(track, options) {

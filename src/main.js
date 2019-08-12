@@ -1,33 +1,19 @@
 import Pixi from "./engines/Pixi";
 import Hero from "./entities/Hero";
+import { setup } from "./stages/setup";
+import { intro } from "./stages/intro";
+import { begin } from "./stages/begin";
 import GhoulFactory from "./engines/GhoulFactory";
 import { waveChange } from "./settings";
 import Background from "./effects/Background";
-import { introAnimation } from "./effects/introAnimation";
-import { centerText, scoreText } from "./lib/text";
+import { centerText } from "./lib/text";
 import Sound from "./effects/Sound";
 
-// Wait until Pixi renderers are ready and fonts loaded
-Pixi.create().then(() => {
-  setup.then(intro).then(begin);
-});
-
-const setup = Promise.all([
-  Sound.create(),
-  Background.create(),
-  centerText.create(),
-  scoreText.create()
-]);
-
-const intro = () =>
-  new Promise(resolve => {
-    centerText.text = "TANKBLADE";
-    Sound.music("intro");
-    introAnimation(centerText).then(() => {
-      Sound.stop("intro");
-      resolve();
-    });
-  });
+// Wait until Pixi renderers are ready
+Pixi.create()
+  .then(setup)
+  .then(intro)
+  .then(begin);
 
 // This is triggering waaaaay too much!
 const gameOver = () => {
@@ -49,13 +35,6 @@ const ghoulFactory = new GhoulFactory({
   Hero,
   gameOver
 });
-
-const begin = () => {
-  Sound.music("bgm");
-  centerText.text = null;
-  scoreText.text = "ROUND 1 ";
-  loop();
-};
 
 let start = Date.now(), // <- reset to restart waves
   then = Date.now();

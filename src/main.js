@@ -33,7 +33,7 @@ const oneShotAnimation = () => {
 const intro = () =>
   new Promise(resolve => {
     centerText.text = "TANKBLADE";
-    Sound.play("intro");
+    Sound.music("intro");
     oneShotAnimation();
     setTimeout(() => {
       Sound.stop("intro");
@@ -60,7 +60,7 @@ const ghoulFactory = new GhoulFactory({
 });
 
 const begin = () => {
-  Sound.play("bgm", { loop: true });
+  Sound.music("bgm");
   centerText.text = null;
   scoreText.text = "ROUND 1 ";
   loop();

@@ -8,9 +8,9 @@ const soundResources = {
   bounce1: "bounce1.mp3",
   bounce2: "bounce2.mp3",
   bounce3: "bounce3.mp3",
-  hairy: "hairy.mp3"
+  hairy: "hairy.mp3",
+  gameover: "gameover.mp3"
 };
-
 class Sound {
   constructor() {}
   create() {
@@ -19,7 +19,6 @@ class Sound {
       for (let r in soundResources) {
         Pixi.Loader.shared.add(r, soundResources[r]);
       }
-
       // Fire up the loader, creating usable sounds object
       this.sounds = {};
       Pixi.Loader.shared.load((loader, resources) => {
@@ -30,18 +29,16 @@ class Sound {
         }
         resolve("Sound loaded");
       });
-
-      // Pixi.sound.Sound.from({
-      //   url: "bgm.wav",
-      //   preload: true,
-      //   loop: true,
-      //   loaded: (err, sound) => {
-      //     // sound.play();
-      //   }
-      // });
     });
   }
-  play(track, options) {
+  music(track) {
+    if (enableSound) {
+      this.music.sound && this.music.sound.stop();
+      this.music = this.sounds[track];
+      this.music.play({ loop: true });
+    }
+  }
+  effect(track, options) {
     if (enableSound) {
       this.sounds[track].play(options);
     }

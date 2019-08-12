@@ -56,7 +56,7 @@ class Hero {
 
     // bounce1,2,3 randomly with an even distrubution
     // On reflection, I'm not keep on bounce3..
-    Sound.play(`bounce${Math.floor(Math.random() * 2) + 1}`);
+    Sound.effect(`bounce${Math.floor(Math.random() * 2) + 1}`);
 
     this.score += 1; // *
 

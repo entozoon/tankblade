@@ -53,11 +53,9 @@ class Background {
     if (this.gettingHairy != this.gettingHairyStore) {
       this.gettingHairyStore = this.gettingHairy;
       if (this.gettingHairy) {
-        Sound.stop("bgm");
-        Sound.play("hairy", { loop: true });
+        Sound.music("hairy");
       } else {
-        Sound.play("bgm", { loop: true });
-        Sound.stop("hairy");
+        Sound.music("bgm");
       }
     }
 

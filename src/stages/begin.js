@@ -5,6 +5,7 @@ import Sound from "../effects/Sound";
 import Background from "../effects/Background";
 import { centerText, scoreText } from "../lib/text";
 import { waveChange } from "../settings";
+import { dt } from "../engines/time";
 
 export const begin = () => {
   Sound.music("bgm");

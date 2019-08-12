@@ -10,35 +10,38 @@ import { scoreText } from "../lib/text";
 import Sound from "../effects/Sound";
 
 class Hero {
-  constructor() {
-    this.width = 12;
-    this.height = 6;
-    this.score = 0;
-    Object.assign(
-      this,
-      new Sprite({
-        spriteSheet: "hero.png",
-        poses
-      }),
-      new Mover({
-        thrustPower: 0.01,
-        thrustLimit: 0.1,
-        decelerationSpeed: 0.0002,
-        minThrust: 0.001
-      }),
-      new Hurter({
-        id: -1,
-        hp: 100,
-        hurtPause: 100,
-        dieEntity: this.dieEntity.bind(this)
-      }),
-      new EdgeBouncer(),
-      new Controllable()
-    );
-    // this.setThrust = this.setThrust;
-    this.setPosition({ y: 32, x: 32 });
-    this.setPose("default");
-    this.constructed = true;
+  create() {
+    return new Promise(resolve => {
+      this.width = 12;
+      this.height = 6;
+      this.score = 0;
+      Object.assign(
+        this,
+        new Sprite({
+          spriteSheet: "hero.png",
+          poses
+        }),
+        new Mover({
+          thrustPower: 0.01,
+          thrustLimit: 0.1,
+          decelerationSpeed: 0.0002,
+          minThrust: 0.001
+        }),
+        new Hurter({
+          id: -1,
+          hp: 100,
+          hurtPause: 100,
+          dieEntity: this.dieEntity.bind(this)
+        }),
+        new EdgeBouncer(),
+        new Controllable()
+      );
+      // this.setThrust = this.setThrust;
+      this.setPosition({ y: 32, x: 32 });
+      this.setPose("default");
+      this.constructed = true;
+      resolve();
+    });
   }
   dieEntity() {
     // Can't currently get hurt, as such, so..

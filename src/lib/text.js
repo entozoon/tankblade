@@ -10,9 +10,6 @@ class Text {
   set scale(value) {
     this._text.scale = value;
   }
-  // get scale() {
-  //   return (this._text && this._text.scale) || null;
-  // }
 }
 
 class ScoreText extends Text {
@@ -23,7 +20,7 @@ class ScoreText extends Text {
   // After fonts are loaded (should be instant? I mean, CSS embed)
   create() {
     return new Promise(resolve => {
-      this._text = new Pixi.Text(this.text, {
+      this._text = new Pixi.Text(this.default, {
         fontFamily: '"uni_05_53", Helvetica, Arial, sans-serif',
         fontSize: 8,
         textBaseline: "alphabetic",
@@ -51,7 +48,7 @@ class CenterText extends Text {
   }
   create() {
     return new Promise(resolve => {
-      this._text = new Pixi.Text(this.text, {
+      this._text = new Pixi.Text(this.default, {
         fontFamily: '"uni_05_53", Helvetica, Arial, sans-serif',
         fontSize: 8,
         textBaseline: "alphabetic",

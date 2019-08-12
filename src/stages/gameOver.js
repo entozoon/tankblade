@@ -1,7 +1,8 @@
-import Sound from "../effects/Sound";
+import Time from "../engines/Time";
 import GhoulFactory from "../engines/GhoulFactory";
+import Hero from "../entities/Hero";
+import Sound from "../effects/Sound";
 import { centerText } from "../lib/text";
-import { introAnimation } from "../effects/introAnimation";
 
 // This is triggering waaaaay too much!
 export const gameOver = () => {
@@ -11,9 +12,9 @@ export const gameOver = () => {
   Sound.music("gameover");
   centerText.text = "GAME OVER";
   setTimeout(() => {
-    start = Date.now();
-    GhoulFactory.reset();
+    Time.reset();
     Hero.reset();
+    GhoulFactory.reset();
     centerText.text = null;
   }, 3000);
 };

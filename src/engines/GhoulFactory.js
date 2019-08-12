@@ -1,4 +1,5 @@
 import Pixi from "../engines/Pixi";
+import { gameOver } from "../stages/gameOver";
 import Ghoul from "../entities/Ghoul";
 import Hero from "../entities/Hero";
 import { constrain } from "../lib/utilities";
@@ -6,7 +7,7 @@ import { randomOutsidePerimeter } from "../lib/utilities";
 import { ghoulCountGettingHairy, ghoulCountGameOver } from "../settings";
 import Background from "../effects/Background";
 
-export default class {
+class GhoulFactory {
   constructor({ timeoutStart, timeoutEnd, gameOver }) {
     this.timeout = timeoutStart;
     this.timeoutEnd = timeoutEnd;
@@ -73,3 +74,9 @@ export default class {
     this.ghouls.forEach(g => g.update(dt));
   }
 }
+export default new GhoulFactory({
+  timeoutStart: 2000,
+  timeoutEnd: 100,
+  Hero,
+  gameOver
+});

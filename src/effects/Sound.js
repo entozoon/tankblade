@@ -1,4 +1,5 @@
 import Pixi from "../engines/Pixi";
+import { enableSound, volume } from "../settings";
 // import "pixi-sound";
 
 const soundResources = {
@@ -23,7 +24,9 @@ class Sound {
       this.sounds = {};
       Pixi.Loader.shared.load((loader, resources) => {
         for (let track in resources) {
-          this.sounds[track] = resources[track].sound;
+          let sound = resources[track].sound;
+          sound.volume = volume;
+          this.sounds[track] = sound;
         }
         resolve("Sound loaded");
       });
@@ -39,10 +42,14 @@ class Sound {
     });
   }
   play(track, options) {
-    this.sounds[track].play(options);
+    if (enableSound) {
+      this.sounds[track].play(options);
+    }
   }
-  stop(track, options) {
-    this.sounds[track].stop();
+  stop(track) {
+    if (enableSound) {
+      this.sounds[track].stop();
+    }
   }
 }
 export default new Sound(); // Single instance

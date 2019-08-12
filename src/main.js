@@ -1,7 +1,7 @@
 import Pixi from "./engines/Pixi";
 import Hero from "./entities/Hero";
 import GhoulFactory from "./engines/GhoulFactory";
-import { waveChange } from "./config";
+import { waveChange } from "./settings";
 import Background from "./effects/Background";
 import { centerText, scoreText } from "./lib/text";
 import Sound from "./effects/Sound";
@@ -62,6 +62,7 @@ const ghoulFactory = new GhoulFactory({
 const begin = () => {
   Sound.play("bgm", { loop: true });
   centerText.text = null;
+  scoreText.text = "ROUND 1 ";
   loop();
 };
 

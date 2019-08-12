@@ -3,7 +3,7 @@ import Ghoul from "../entities/Ghoul";
 import Hero from "../entities/Hero";
 import { constrain } from "../lib/utilities";
 import { randomOutsidePerimeter } from "../lib/utilities";
-import { ghoulCountGettingHairy, ghoulCountGameOver } from "../config";
+import { ghoulCountGettingHairy, ghoulCountGameOver } from "../settings";
 import Background from "../effects/Background";
 
 export default class {

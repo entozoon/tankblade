@@ -1,5 +1,5 @@
 import Pixi from "../engines/Pixi";
-import { gettingHairyPulseSpeed } from "../config";
+import { gettingHairyPulseSpeed } from "../settings";
 import Sound from "../effects/Sound";
 
 class Background {

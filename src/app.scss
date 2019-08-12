@@ -48,8 +48,4 @@ body {
     image-rendering: pixelated;
     -ms-interpolation-mode: nearest-neighbor;
   }
-  // Remove scaling for debugging locally
-  &.-localhost {
-    //  transform: none;
-  }
 }

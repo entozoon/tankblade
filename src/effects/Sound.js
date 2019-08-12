@@ -12,7 +12,14 @@ const soundResources = {
   gameover: "gameover.mp3"
 };
 class Sound {
-  constructor() {}
+  constructor() {
+    this.disableEffects = false;
+    // Cheeky sound debug url
+    this.enableSound = enableSound;
+    if (window.location.search === "?debug") {
+      this.enableSound = false;
+    }
+  }
   create() {
     return new Promise(resolve => {
       // Initialise sound loader
@@ -32,7 +39,7 @@ class Sound {
     });
   }
   music(track) {
-    if (enableSound) {
+    if (this.enableSound) {
       if (this.musicTrackPlaying) {
         this.sounds[this.musicTrackPlaying].stop();
       }
@@ -41,12 +48,12 @@ class Sound {
     }
   }
   effect(track, options) {
-    if (enableSound) {
+    if (this.enableSound && !this.disableEffects) {
       this.sounds[track].play(options);
     }
   }
   stop(track) {
-    if (enableSound) {
+    if (this.enableSound) {
       this.sounds[track].stop();
     }
   }

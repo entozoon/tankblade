@@ -3,6 +3,7 @@ import Hero from "./entities/Hero";
 import GhoulFactory from "./engines/GhoulFactory";
 import { waveChange } from "./settings";
 import Background from "./effects/Background";
+import { introAnimation } from "./effects/introAnimation";
 import { centerText, scoreText } from "./lib/text";
 import Sound from "./effects/Sound";
 
@@ -18,32 +19,20 @@ const setup = Promise.all([
   scoreText.create()
 ]);
 
-let a = 0; // Avoids clasing up, simple way to whip up anims
-const oneShotAnimation = () => {
-  a++;
-  let id = requestAnimationFrame(oneShotAnimation);
-  centerText.scale = {
-    x: 50 - a,
-    y: 50 - a
-  };
-  Pixi.render();
-  if (a >= 49) cancelAnimationFrame(id);
-};
-
 const intro = () =>
   new Promise(resolve => {
     centerText.text = "TANKBLADE";
     Sound.music("intro");
-    Sound.music("intro");
-    oneShotAnimation();
-    setTimeout(() => {
+    introAnimation(centerText).then(() => {
       Sound.stop("intro");
       resolve();
-    }, 2000);
+    });
   });
 
+// This is triggering waaaaay too much!
 const gameOver = () => {
   // Perhaps slow down the speed of bgm beforehand?
+  Sound.disableEffects = true;
   Sound.music("gameover");
   centerText.text = "GAME OVER";
   setTimeout(() => {

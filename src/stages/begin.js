@@ -1,11 +1,11 @@
 import Pixi from "../engines/Pixi";
+import Time from "../engines/Time";
 import Hero from "../entities/Hero";
 import GhoulFactory from "../engines/GhoulFactory";
 import Sound from "../effects/Sound";
 import Background from "../effects/Background";
 import { centerText, scoreText } from "../lib/text";
 import { waveChange } from "../settings";
-import { dt } from "../engines/time";
 
 export const begin = () => {
   Sound.music("bgm");
@@ -14,17 +14,13 @@ export const begin = () => {
   loop();
 };
 
-let start = Date.now(), // <- reset to restart waves
-  then = Date.now();
 const loop = () => {
-  const dt = Date.now() - then,
-    elapsed = then - start;
-  then = Date.now();
+  Time.update();
+  Hero.update(Time.dt);
+  const wave = Math.floor(Time.elapsed / waveChange) + 1;
+  GhoulFactory.update(Time.dt, wave);
+  Background.update(Time.dt, Time.elapsed);
 
   Pixi.render();
   requestAnimationFrame(loop);
-  Hero.update(dt);
-  const wave = Math.floor(elapsed / waveChange) + 1;
-  GhoulFactory.update(dt, wave);
-  Background.update(dt, elapsed);
 };

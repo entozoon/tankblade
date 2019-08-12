@@ -5,6 +5,7 @@ import { introAnimation } from "../effects/introAnimation";
 
 // This is triggering waaaaay too much!
 export const gameOver = () => {
+  console.log("gameOver");
   // Perhaps slow down the speed of bgm beforehand?
   Sound.disableEffects = true;
   Sound.music("gameover");

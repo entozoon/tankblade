@@ -13,32 +13,32 @@ class Text {
 }
 
 class ScoreText extends Text {
+  // After fonts are loaded (should be instant? I mean, CSS embed)
   constructor() {
     super();
     this.default = "";
-  }
-  // After fonts are loaded (should be instant? I mean, CSS embed)
-  create() {
-    return new Promise(resolve => {
-      this._text = new Pixi.Text(this.default, {
-        fontFamily: '"uni_05_53", Helvetica, Arial, sans-serif',
-        fontSize: 8,
-        textBaseline: "alphabetic",
-        fill: 0xff6600,
-        dropShadow: true,
-        dropShadowAngle: 0.6,
-        dropShadowBlur: 2,
-        dropShadowDistance: 1
+    this.create = () =>
+      new Promise(resolve => {
+        this._text = new Pixi.Text(this.default, {
+          fontFamily: '"uni_05_53", Helvetica, Arial, sans-serif',
+          fontSize: 8,
+          textBaseline: "alphabetic",
+          fill: 0xff6600,
+          dropShadow: true,
+          dropShadowAngle: 0.6,
+          dropShadowBlur: 2,
+          dropShadowDistance: 1
+        });
+        this._text.position = { x: 64 + 1, y: 0 - 1 };
+        this._text.anchor.set(1, 0);
+        this._text.zIndex = 999;
+        this._text.alpha = 0.75;
+        Pixi.containerMain.addChild(this._text);
+        resolve();
       });
-      this._text.position = { x: 64 + 1, y: 0 - 1 };
-      this._text.anchor.set(1, 0);
-      this._text.zIndex = 999;
-      this._text.alpha = 0.75;
-      Pixi.containerMain.addChild(this._text);
-      resolve();
-    });
   }
 }
+
 export const scoreText = new ScoreText();
 
 class CenterText extends Text {

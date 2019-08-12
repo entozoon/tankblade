@@ -19,43 +19,42 @@ class Sound {
     if (window.location.search === "?debug") {
       this.enableSound = false;
     }
-  }
-  create() {
-    return new Promise(resolve => {
-      // Initialise sound loader
-      for (let r in soundResources) {
-        Pixi.Loader.shared.add(r, soundResources[r]);
-      }
-      // Fire up the loader, creating usable sounds object
-      this.sounds = {};
-      Pixi.Loader.shared.load((loader, resources) => {
-        for (let track in resources) {
-          let sound = resources[track].sound;
-          sound.volume = volume;
-          this.sounds[track] = sound;
+
+    this.create = () =>
+      new Promise(resolve => {
+        // Initialise sound loader
+        for (let r in soundResources) {
+          Pixi.Loader.shared.add(r, soundResources[r]);
         }
-        resolve("Sound loaded");
+        // Fire up the loader, creating usable sounds object
+        this.sounds = {};
+        Pixi.Loader.shared.load((loader, resources) => {
+          for (let track in resources) {
+            let sound = resources[track].sound;
+            sound.volume = volume;
+            this.sounds[track] = sound;
+          }
+          console.log("sound created");
+          resolve("Sound loaded");
+        });
       });
-    });
   }
+
   music(track) {
-    if (this.enableSound) {
-      if (this.musicTrackPlaying) {
-        this.sounds[this.musicTrackPlaying].stop();
-      }
-      this.musicTrackPlaying = track;
-      this.sounds[track].play({ loop: true });
+    if (!this.enableSound || this.musicTrackPlaying === track) return;
+    if (this.musicTrackPlaying) {
+      this.sounds[this.musicTrackPlaying].stop();
     }
+    this.musicTrackPlaying = track;
+    this.sounds[track].play({ loop: true });
   }
   effect(track, options) {
-    if (this.enableSound && !this.disableEffects) {
-      this.sounds[track].play(options);
-    }
+    if (!this.enableSound || this.disableEffects) return;
+    this.sounds[track].play(options);
   }
   stop(track) {
-    if (this.enableSound) {
-      this.sounds[track].stop();
-    }
+    if (!this.enableSound) return;
+    this.sounds[track].stop();
   }
 }
 export default new Sound(); // Single instance

@@ -2,12 +2,14 @@ import Pixi from "./engines/Pixi";
 import { setup } from "./stages/setup";
 import { intro } from "./stages/intro";
 import { begin } from "./stages/begin";
+import { stage1 } from "./stages/stage";
 
 // Wait until Pixi renderers are ready, then fire through the stages!
 Pixi.create()
   .then(setup)
   .then(intro)
-  .then(begin); // change to stage(1)
+  // .then(begin); // changing to stage(1)
+  .then(stage1.create);
 
 // Nag Safari users, as it straight up doesn't render well enough
 var ua = navigator.userAgent.toLowerCase();

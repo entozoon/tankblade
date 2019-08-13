@@ -2,6 +2,7 @@ import Pixi from "../engines/Pixi";
 import Time from "../engines/Time";
 import { gettingHairyPulseSpeed } from "../settings";
 import Sound from "../effects/Sound";
+import { decToHex } from "../lib/utilities";
 
 class Background {
   constructor() {
@@ -12,11 +13,6 @@ class Background {
     this.create = () =>
       new Promise(resolve => {
         this.sprite = new Pixi.Sprite(new Pixi.Texture.from("bg.png"));
-        // Pixi.containerBgBlood.addChild(this.sprite);
-        // // this.sprite.alpha = 1; // first render
-        // setTimeout(() => {
-        //   Pixi.containerBgBlood.removeChild(this.sprite); // arbitrarily after first render
-        // }, 500);
         resolve();
       });
   }
@@ -35,43 +31,13 @@ class Background {
   }
   darken() {
     this.sprite.alpha = 1;
-
-    // let colorMatrix = new Pixi.ColorMatrixFilter();
-    // Pixi.containerMain.filters = [colorMatrix];
-    // colorMatrix.brightness(0.1);
-
-    const fadeTints = [
-      0xffffff,
-      0xeeeeee,
-      0xdddddd,
-      0xcccccc,
-      0xbbbbbb,
-      0xaaaaaa,
-      0x999999,
-      0x888888,
-      0x777777,
-      0x666666,
-      0x555555,
-      0x444444,
-      0x333333,
-      0x222222,
-      0x111111,
-      0x000000
-    ];
-    let i = 0;
+    let i = 255;
     const cheekyFade = setInterval(() => {
-      this.sprite.tint = fadeTints[i];
-      console.log(i);
+      this.sprite.tint = `0x${decToHex(i)}${decToHex(i)}${decToHex(i)}`;
       Pixi.render();
-      i++;
-      if (i >= fadeTints.length) clearInterval(cheekyFade);
-    }, 200);
-
-    // var filter = new Pixi.ColorMatrixFilter();
-    // filter.matrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
-    // stage.filters = [filter];
-    // console.log(this.sprite);
-    // this.sprite.brightness = 0.1;
+      i -= 5;
+      if (i <= 100) clearInterval(cheekyFade);
+    }, 100);
   }
   reset() {
     // Allow it to draw fully opaquely for a short amount of time

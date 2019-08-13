@@ -27,3 +27,5 @@ export const randomOutsidePerimeter = () => {
       : Math.random() * 64 + outset * 2 - outset
   };
 };
+
+export const decToHex = value => value.toString(16);

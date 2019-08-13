@@ -6,34 +6,7 @@ import { centerText, scoreText } from "../lib/text";
 import Bloodener from "../effects/Bloodener";
 import Hero from "../entities/Hero";
 
-// Let there be time, a firmament, sound etc
-// export const setup = () =>
-//   new Promise(resolve => {
-//     Promise.all([
-//       Pixi.create(),
-//       // Time.create(), // constructs instead
-//       Sound.create(),
-//       Background.create(),
-//       Bloodener.create(),
-//       Hero.create(),
-//       centerText.create(),
-//       scoreText.create()
-//     ]);
-//   });
-
-// export const setup = new Promise(resolve => {
-//   Promise.all([
-//     Pixi.create(),
-//     // Time.create(), // constructs instead
-//     Sound.create(),
-//     Background.create(),
-//     Bloodener.create(),
-//     Hero.create(),
-//     centerText.create(),
-//     scoreText.create()
-//   ]).then(resolve);
-// });
-
+// Let there be firmaments, sound etc
 export const setup = () =>
   new Promise(resolve => {
     Pixi.create()

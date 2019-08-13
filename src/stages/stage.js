@@ -22,7 +22,7 @@ const loop = (resolve, reject, stage) => () => {
   }
   // Overrun with ghouls
   else if (GhoulFactory.ghouls.length >= stage.ghoulCountGameOver) {
-    reject("Overrun");
+    reject("overrun");
   }
   // TyPiCaL lOoP
   else {

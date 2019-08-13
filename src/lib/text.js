@@ -3,6 +3,7 @@ import Pixi from "../engines/Pixi";
 class Text {
   set text(string) {
     if (this._text) this._text.text = string;
+    Pixi.render();
   }
   get text() {
     return (this._text && this._text.text) || this.default;

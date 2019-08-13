@@ -57,7 +57,6 @@ class GhoulFactory {
     // Create ghouls, at an appropriate speed
     // (turns out, having a natural feeling wave of baddiez isn't easy..)
     this.makeTimeout += Time.dt;
-    console.log(this.ghouls.length);
 
     if (!this.ghouls.length || this.makeTimeout > this.ghoulFrequency) {
       this.make(++this.makeCount);

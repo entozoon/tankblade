@@ -5,18 +5,22 @@ import GhoulFactory from "../engines/GhoulFactory";
 import Sound from "../effects/Sound";
 import Background from "../effects/Background";
 import { centerText, scoreText } from "../lib/text";
-import { waveChange, ghoulCountGameOver } from "../settings";
+import { stages } from "../settings";
 
 const loop = (resolve, reject, stage) => () => {
   Time.update();
   Hero.update(Time.dt);
-  const wave = Math.floor(Time.elapsed / waveChange) + 1;
+
+  // Load/update all these parameters in the factory instead of this hocus pocus
+  // Or at least a separate function somewhere
+  const wave = Math.floor(Time.elapsed / stage.waveChange) + 1;
   GhoulFactory.update(Time.dt, wave);
+
   Background.update(Time.dt, Time.elapsed);
 
-  if (wave >= 4) {
+  if (wave >= stage.wavesToSurvive) {
     resolve();
-  } else if (GhoulFactory.ghouls.length >= ghoulCountGameOver) {
+  } else if (GhoulFactory.ghouls.length >= stage.ghoulCountGameOver) {
     reject();
   } else {
     Pixi.render();
@@ -25,15 +29,20 @@ const loop = (resolve, reject, stage) => () => {
 };
 
 class Stage {
-  constructor({ title }) {
-    this.title = title;
+  constructor(options) {
+    // Destructured assignment into this, is, I mean, awful syntax..
+    // ({ waveFactor: this.waveFactor } = stages[id]);
+    // But then, typical assignment is still quite exhaustive..
+    // So let's just pass it all in on construction and jam it in blind
+    Object.assign(this, options);
 
     this.create = () => {
       new Promise(resolve => {
         Time.reset();
+        GhoulFactory.reset(options);
         Sound.music("bgm");
         centerText.text = null;
-        scoreText.text = `${title} `;
+        scoreText.text = `${options.title} `;
         resolve();
       });
     };
@@ -41,11 +50,12 @@ class Stage {
   loop() {
     // https://yeti.co/blog/cool-tricks-with-animating-using-requestanimationframe/#trick3promiseifyingnontimestampedanimations
     return new Promise((resolve, reject) => {
+      console.log("Stage:", this.title);
       // Pass the resolve into the loop function, to be callbacked
       requestAnimationFrame(loop(resolve, reject, this));
     });
   }
 }
-export const stage1 = new Stage({ title: "ROUND 1" });
-export const stage2 = new Stage({ title: "ROUND 2" });
-export const stage3 = new Stage({ title: "ROUND 3" });
+export const stage1 = new Stage({ title: "ROUND 1", ...stages[0] });
+export const stage2 = new Stage({ title: "ROUND 2", ...stages[1] });
+export const stage3 = new Stage({ title: "ROUND 3", ...stages[2] });

@@ -3,7 +3,6 @@ import Ghoul from "../entities/Ghoul";
 import Hero from "../entities/Hero";
 import { constrain } from "../lib/utilities";
 import { randomOutsidePerimeter } from "../lib/utilities";
-import { ghoulCountGettingHairy, ghoulCountGameOver } from "../settings";
 import Background from "../effects/Background";
 
 class GhoulFactory {
@@ -14,9 +13,9 @@ class GhoulFactory {
     // this.waveTimer = 0;
     this.makeCount = 0;
     this.makeTimeout = 0;
-    this.gettingHairy = () => this.ghouls.length > ghoulCountGettingHairy;
+    this.gettingHairy = () => this.ghouls.length > this.ghoulCountGettingHairy;
     this.gettingHairyChanging = false;
-    ghoulCountGettingHairy;
+    this.ghoulCountGettingHairy;
     this.reset = this.reset;
   }
   dieAtTheGhoulFactory(id) {
@@ -40,7 +39,9 @@ class GhoulFactory {
       })
     );
   }
-  reset() {
+  reset(settings) {
+    Object.assign(this, settings);
+
     this.ghouls.forEach(g => g.spriteRemove());
     this.ghouls = [];
   }

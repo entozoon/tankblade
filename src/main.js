@@ -1,7 +1,7 @@
 import Pixi from "./engines/Pixi";
 import { setup } from "./stages/setup";
 import { intro } from "./stages/intro";
-import { stage1, stage2 } from "./stages/stage";
+import { stage1, stage2, stage3 } from "./stages/stage";
 
 // Wait until Pixi renderers are ready, then fire through the stages!
 Pixi.create()
@@ -15,6 +15,11 @@ Pixi.create()
   .then(() => stage1.loop())
   .then(stage2.create)
   .then(() => stage2.loop())
+  .then(stage3.create)
+  .then(() => stage3.loop())
+  .then(() => {
+    console.log("game over, but in a good way!");
+  })
   .catch(error => {
     console.log("game is teh over", error);
   });

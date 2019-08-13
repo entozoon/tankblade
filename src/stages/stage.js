@@ -14,14 +14,17 @@ const loop = (resolve, reject, stage) => () => {
   Background.update();
 
   // Survived the waves
-  if (GhoulFactory.wave >= stage.wavesToSurvive) {
+  // if (GhoulFactory.wave >= stage.wavesToSurvive) {
+  //   resolve();
+  // }
+  if (Time.elapsed >= stage.survivalTime) {
     resolve();
   }
   // Overrun with ghouls
   else if (GhoulFactory.ghouls.length >= stage.ghoulCountGameOver) {
     reject("Overrun");
   }
-  // TYpical loop
+  // TyPiCaL lOoP
   else {
     Pixi.render();
     requestAnimationFrame(loop(resolve, reject, stage));

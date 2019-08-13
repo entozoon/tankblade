@@ -53,17 +53,13 @@ class GhoulFactory {
     });
     this.ghouls = [];
   }
-  get wave() {
-    return Math.floor(Time.elapsed / this.waveChange) + 1;
-  }
-  makeFrequency() {
-    return constrain(5000 - (Math.pow(this.wave, 0.1) - 1) * 20000, 50);
-  }
   update() {
     // Create ghouls, at an appropriate speed
     // (turns out, having a natural feeling wave of baddiez isn't easy..)
     this.makeTimeout += Time.dt;
-    if (!this.ghouls.length || this.makeTimeout > this.makeFrequency()) {
+    console.log(this.ghouls.length);
+
+    if (!this.ghouls.length || this.makeTimeout > this.ghoulFrequency) {
       this.make(++this.makeCount);
       this.makeTimeout = 0;
     }

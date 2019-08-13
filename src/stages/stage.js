@@ -5,7 +5,7 @@ import GhoulFactory from "../engines/GhoulFactory";
 import Sound from "../effects/Sound";
 import Background from "../effects/Background";
 import { centerText, scoreText } from "../lib/text";
-import { stages } from "../settings";
+import { stagesConfig } from "../settings";
 
 const loop = (resolve, reject, stage) => () => {
   Time.update();
@@ -34,7 +34,7 @@ const loop = (resolve, reject, stage) => () => {
 class Stage {
   constructor(options) {
     // Destructured assignment into this, is, I mean, awful syntax..
-    // ({ waveFactor: this.waveFactor } = stages[id]);
+    // ({ waveFactor: this.waveFactor } = stagesConfig[id]);
     // But then, typical assignment is still quite exhaustive..
     // So let's just pass it all in on construction and jam it in blind
     Object.assign(this, options);
@@ -91,10 +91,22 @@ class Stage {
     });
   }
 }
-export const stage1 = new Stage({
-  title: "ROUND 1",
-  ...stages[0],
-  first: true
-});
-export const stage2 = new Stage({ title: "ROUND 2", ...stages[1] });
-export const stage3 = new Stage({ title: "ROUND 3", ...stages[2] });
+export const stages = [
+  new Stage({
+    title: " ROUND 1 OF " + stagesConfig.length,
+    ...stagesConfig[0],
+    first: true
+  }),
+  new Stage({
+    title: " ROUND 2 OF " + stagesConfig.length,
+    ...stagesConfig[1]
+  }),
+  new Stage({
+    title: " ROUND 3 OF " + stagesConfig.length,
+    ...stagesConfig[2]
+  }),
+  new Stage({
+    title: " ROUND 3 OF " + stagesConfig.length,
+    ...stagesConfig[4]
+  })
+];

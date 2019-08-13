@@ -6,18 +6,25 @@ export const gettingHairyPulseSpeed = 500,
   ghoulCountGameOver = 3,
   enableSound = true,
   volume = 0.4,
-  stages = [
+  stagesConfig = [
     {
+      // totalGhouls = 1000/ghoulFrequency * survivalTime/1000
       ghoulFrequency: 1000,
       survivalTime: 12000,
       ghoulCountGettingHairy: 80,
-      ghoulCountGameOver: 5 //100
+      ghoulCountGameOver: 100
+    },
+    {
+      ghoulFrequency: 333,
+      survivalTime: 12000,
+      ghoulCountGettingHairy: 20,
+      ghoulCountGameOver: 25
     },
     {
       ghoulFrequency: 80,
       survivalTime: 15000,
-      ghoulCountGettingHairy: 50,
-      ghoulCountGameOver: 70
+      ghoulCountGettingHairy: 60,
+      ghoulCountGameOver: 90
     },
     {
       ghoulFrequency: 50,

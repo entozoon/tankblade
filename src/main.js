@@ -1,20 +1,22 @@
 import { setup } from "./stages/setup";
 import { intro } from "./stages/intro";
-import { stage1, stage2, stage3 } from "./stages/stage";
+import { stages } from "./stages/stage";
 import { gameOver } from "./stages/gameOver";
 import { centerText } from "./lib/text";
 
 const game = () => {
   intro()
-    .then(stage1.create)
-    // .then(stage1.loop)
+    .then(stages[0].create)
+    .then(() => stages[0].loop())
+    .then(stages[1].create)
+    .then(() => stages[1].loop())
+    .then(stages[2].create)
+    .then(() => stages[2].loop())
+    .then(stages[3].create)
+    .then(() => stages[3].loop())
+    // ^ .then(stages[3].loop)
     // ^ NGL I don't understand why I can't do this, but like
     // without running() it, it doesn't get its 'this' context
-    .then(() => stage1.loop())
-    .then(stage2.create)
-    .then(() => stage2.loop())
-    .then(stage3.create)
-    .then(() => stage3.loop())
     .then(() => {
       centerText.text = "YOU WON";
       setTimeout(() => {

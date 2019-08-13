@@ -3,4 +3,4 @@ build
 *.log
 _butler
 *.bak
-*.pfk
+*.pkf

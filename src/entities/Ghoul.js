@@ -75,13 +75,13 @@ export default class {
   dieEntity() {
     this.dieAtTheGhoulFactory(this.id);
   }
-  update(dt) {
+  update() {
     if (!this.constructed) return;
     this.setBodyLanguage({ target: Hero });
-    this.moverUpdate(dt);
-    this.seekerUpdate(dt);
-    this.spriteUpdate(dt);
-    this.hurterUpdate(dt);
+    this.moverUpdate();
+    this.seekerUpdate();
+    this.spriteUpdate();
+    this.hurterUpdate();
     // debugger;
   }
 }

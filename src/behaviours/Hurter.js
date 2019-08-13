@@ -1,4 +1,4 @@
-import Pixi from "../engines/Pixi";
+import Time from "../engines/Time";
 import Bloodener from "../effects/Bloodener";
 import Hero from "../entities/Hero";
 
@@ -50,16 +50,16 @@ export default class {
       }, this.hurtPause);
     }
   }
-  hurterUpdate(dt) {
+  hurterUpdate() {
     // this.bloods.forEach((blood, i) => {
     for (let i = 0; i < this.bloods.length; i++) {
       const blood = this.bloods[i];
       let dec = blood.lifeFactor - 0.7;
       dec = dec < 0 ? 0 : dec;
-      blood.x += blood.thrust.x * this.bloodThrustSpeed * dt * dec;
-      blood.y += blood.thrust.y * this.bloodThrustSpeed * dt * dec;
+      blood.x += blood.thrust.x * this.bloodThrustSpeed * Time.dt * dec;
+      blood.y += blood.thrust.y * this.bloodThrustSpeed * Time.dt * dec;
       blood.alpha = blood.lifeFactor;
-      blood.lifeFactor -= dt / blood.lifespan;
+      blood.lifeFactor -= Time.dt / blood.lifespan;
       blood.lifeFactor = blood.lifeFactor < 0 ? 0 : blood.lifeFactor;
     }
   }

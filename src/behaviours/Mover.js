@@ -1,4 +1,6 @@
+import Time from "../engines/Time";
 import { constrain } from "../lib/utilities";
+
 export default class {
   constructor({ thrustPower, thrustLimit, decelerationSpeed, minThrust }) {
     // this.position = { y: 30, x: 30 };
@@ -32,20 +34,20 @@ export default class {
     } else {
     }
   }
-  moverUpdate(dt) {
+  moverUpdate() {
     // Move position with current thrust
-    this.position.x += this.thrust.x * dt;
-    this.position.y += this.thrust.y * dt;
+    this.position.x += this.thrust.x * Time.dt;
+    this.position.y += this.thrust.y * Time.dt;
 
     // Update sprite
     this.setPosition(this.position);
 
     // Friction
     this.thrust.x -= this.thrust.x
-      ? Math.sign(this.thrust.x) * this.decelerationSpeed * dt
+      ? Math.sign(this.thrust.x) * this.decelerationSpeed * Time.dt
       : 0;
     this.thrust.y -= this.thrust.y
-      ? Math.sign(this.thrust.y) * this.decelerationSpeed * dt
+      ? Math.sign(this.thrust.y) * this.decelerationSpeed * Time.dt
       : 0;
 
     // Tend to 0

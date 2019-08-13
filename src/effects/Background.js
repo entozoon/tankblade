@@ -1,4 +1,5 @@
 import Pixi from "../engines/Pixi";
+import Time from "../engines/Time";
 import { gettingHairyPulseSpeed } from "../settings";
 import Sound from "../effects/Sound";
 
@@ -41,13 +42,13 @@ class Background {
       this.sprite.alpha = 0.02; // B L O O D S L I C K
     }, 500);
   }
-  update(dt, elapsed) {
-    if (elapsed < 100) {
+  update() {
+    if (Time.elapsed < 100) {
       this.reset();
     }
     // Continous
     if (this.gettingHairy) {
-      this.pulse(dt);
+      this.pulse(Time.dt);
     }
     // Instantaneous
     if (this.gettingHairy != this.gettingHairyStore) {

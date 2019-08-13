@@ -1,4 +1,4 @@
-import Pixi from "../engines/Pixi";
+import Time from "../engines/Time";
 import Ghoul from "../entities/Ghoul";
 import Hero from "../entities/Hero";
 import { constrain } from "../lib/utilities";
@@ -45,15 +45,17 @@ class GhoulFactory {
     this.ghouls.forEach(g => g.spriteRemove());
     this.ghouls = [];
   }
-  update(dt, wave) {
+  get wave() {
+    return Math.floor(Time.elapsed / this.waveChange) + 1;
+  }
+  makeFrequency() {
+    return constrain(5000 - (Math.pow(this.wave, 0.1) - 1) * 20000, 50);
+  }
+  update() {
     // Create ghouls, at an appropriate speed
     // (turns out, having a natural feeling wave of baddiez isn't easy..)
-    const makeFrequency = constrain(
-      5000 - (Math.pow(wave, 0.1) - 1) * 20000,
-      50
-    );
-    this.makeTimeout += dt;
-    if (!this.ghouls.length || this.makeTimeout > makeFrequency) {
+    this.makeTimeout += Time.dt;
+    if (!this.ghouls.length || this.makeTimeout > this.makeFrequency()) {
       this.make(++this.makeCount);
       this.makeTimeout = 0;
     }
@@ -65,7 +67,7 @@ class GhoulFactory {
       Background.reset(); // Only run the once
       Background.gettingHairy = false;
     }
-    this.ghouls.forEach(g => g.update(dt));
+    this.ghouls.forEach(g => g.update(Time.dt));
   }
 }
 export default new GhoulFactory({

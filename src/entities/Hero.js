@@ -1,4 +1,3 @@
-import Pixi from "../engines/Pixi";
 import Sprite from "../engines/Sprite";
 // Mover and Controllable are dependant on each other (because I'm not good enough at composition yet)
 import Mover from "../behaviours/Mover";
@@ -81,13 +80,13 @@ class Hero {
     this.score = 0;
     this.hp = 100;
   }
-  update(dt) {
+  update() {
     if (!this.constructed) return;
-    this.controllableUpdate(dt);
-    this.moverUpdate(dt);
-    this.bounceUpdate(dt);
-    this.spriteUpdate(dt);
-    this.hurterUpdate(dt);
+    this.controllableUpdate();
+    this.moverUpdate();
+    this.bounceUpdate();
+    this.spriteUpdate();
+    this.hurterUpdate();
   }
 }
 export default new Hero();

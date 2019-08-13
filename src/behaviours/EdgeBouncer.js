@@ -21,7 +21,7 @@ export default class {
   fuckingUpReset() {
     this.fuckingUpTimer = 0;
   }
-  bounceUpdate(dt) {
+  bounceUpdate() {
     const nudge = this.thrustPower * 2,
       offsetY = 3,
       offsetX = 6;

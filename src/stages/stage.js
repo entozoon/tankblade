@@ -11,14 +11,10 @@ const loop = (resolve, reject, stage) => () => {
   Time.update();
   Hero.update(Time.dt);
 
-  // Load/update all these parameters in the factory instead of this hocus pocus
-  // Or at least a separate function somewhere
-  const wave = Math.floor(Time.elapsed / stage.waveChange) + 1;
-  GhoulFactory.update(Time.dt, wave);
+  GhoulFactory.update();
+  Background.update();
 
-  Background.update(Time.dt, Time.elapsed);
-
-  if (wave >= stage.wavesToSurvive) {
+  if (GhoulFactory.wave >= stage.wavesToSurvive) {
     resolve();
   } else if (GhoulFactory.ghouls.length >= stage.ghoulCountGameOver) {
     reject();

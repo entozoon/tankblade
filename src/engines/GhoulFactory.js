@@ -39,10 +39,18 @@ class GhoulFactory {
       })
     );
   }
+  runAway() {
+    // Whip out a can of hurt on dems ghouls
+    this.ghouls.forEach(g => {
+      g.thrustAway(Hero);
+      g.hurt(100);
+    });
+  }
   reset(settings) {
     Object.assign(this, settings);
-
-    this.ghouls.forEach(g => g.spriteRemove());
+    this.ghouls.forEach(g => {
+      g.spriteRemove();
+    });
     this.ghouls = [];
   }
   get wave() {

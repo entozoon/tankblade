@@ -7,46 +7,45 @@ import Background from "../effects/Background";
 import { centerText, scoreText } from "../lib/text";
 import { waveChange, ghoulCountGameOver } from "../settings";
 
-const loop = (resolve, reject) => {
-  return () => {
-    Time.update();
-    Hero.update(Time.dt);
-    const wave = Math.floor(Time.elapsed / waveChange) + 1;
-    GhoulFactory.update(Time.dt, wave);
-    Background.update(Time.dt, Time.elapsed);
+const loop = (resolve, reject, stage) => () => {
+  Time.update();
+  Hero.update(Time.dt);
+  const wave = Math.floor(Time.elapsed / waveChange) + 1;
+  GhoulFactory.update(Time.dt, wave);
+  Background.update(Time.dt, Time.elapsed);
 
-    if (wave >= 4) {
-      resolve();
-    } else if (GhoulFactory.ghouls.length >= ghoulCountGameOver) {
-      reject();
-    } else {
-      Pixi.render();
-      requestAnimationFrame(loop(resolve, reject));
-    }
-  };
+  if (wave >= 4) {
+    resolve();
+  } else if (GhoulFactory.ghouls.length >= ghoulCountGameOver) {
+    reject();
+  } else {
+    Pixi.render();
+    requestAnimationFrame(loop(resolve, reject, stage));
+  }
 };
 
 class Stage {
-  constructor(props) {
-    Object.assign(this, props);
+  constructor({ title }) {
+    this.title = title;
 
-    this.create = () =>
+    this.create = () => {
       new Promise(resolve => {
-        console.log("Creating stage", this.name);
         Time.reset();
         Sound.music("bgm");
         centerText.text = null;
-        scoreText.text = `${this.name} `;
+        scoreText.text = `${title} `;
         resolve();
       });
+    };
   }
   loop() {
     // https://yeti.co/blog/cool-tricks-with-animating-using-requestanimationframe/#trick3promiseifyingnontimestampedanimations
     return new Promise((resolve, reject) => {
       // Pass the resolve into the loop function, to be callbacked
-      requestAnimationFrame(loop(resolve, reject));
+      requestAnimationFrame(loop(resolve, reject, this));
     });
   }
 }
-export const stage1 = new Stage({ name: "ROUND 1" });
-export const stage2 = new Stage({ name: "ROUND 2" });
+export const stage1 = new Stage({ title: "ROUND 1" });
+export const stage2 = new Stage({ title: "ROUND 2" });
+export const stage3 = new Stage({ title: "ROUND 3" });

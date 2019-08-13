@@ -9,9 +9,12 @@ Pixi.create()
   .then(intro)
   // .then(begin); // changing to stage(1)
   .then(stage1.create)
-  .then(stage1.loop)
+  // .then(stage1.loop)
+  // ^ NGL I don't understand why I can't do this, but like
+  // without running() it, it doesn't get its 'this' context
+  .then(() => stage1.loop())
   .then(stage2.create)
-  .then(stage2.loop)
+  .then(() => stage2.loop())
   .catch(error => {
     console.log("game is teh over", error);
   });

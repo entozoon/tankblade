@@ -1,5 +1,4 @@
 import Pixi from "../engines/Pixi";
-import { gameOver } from "../stages/gameOver";
 import Ghoul from "../entities/Ghoul";
 import Hero from "../entities/Hero";
 import { constrain } from "../lib/utilities";
@@ -18,7 +17,6 @@ class GhoulFactory {
     this.gettingHairy = () => this.ghouls.length > ghoulCountGettingHairy;
     this.gettingHairyChanging = false;
     ghoulCountGettingHairy;
-    this.gameOver = gameOver;
     this.reset = this.reset;
   }
   dieAtTheGhoulFactory(id) {
@@ -66,17 +64,11 @@ class GhoulFactory {
       Background.reset(); // Only run the once
       Background.gettingHairy = false;
     }
-    // console.log(this.ghouls.length);
-    if (this.ghouls.length > ghoulCountGameOver) {
-      this.gameOver();
-    }
-
     this.ghouls.forEach(g => g.update(dt));
   }
 }
 export default new GhoulFactory({
   timeoutStart: 2000,
   timeoutEnd: 100,
-  Hero,
-  gameOver
+  Hero
 });

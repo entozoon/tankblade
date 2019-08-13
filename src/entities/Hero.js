@@ -41,7 +41,6 @@ class Hero {
         this.setPosition({ y: 32, x: 32 });
         this.setPose("default");
         this.constructed = true;
-        console.log("hero created");
         resolve();
       });
   }
@@ -53,8 +52,11 @@ class Hero {
   }
   set score(value) {
     this._score = value;
-    // Also update the scoreText sprite
-    scoreText.text = `${value}⭐`;
+    // Also update the scoreText sprite, only if necessary (to allow 'ROUND 2' placeholder)
+    let text = `${value}⭐`;
+    if (scoreText.text != text) {
+      scoreText.text = `${value}⭐`;
+    }
   }
   seekerCollision(seeker) {
     if (seeker.hurting) return;

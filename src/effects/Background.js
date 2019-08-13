@@ -16,7 +16,6 @@ class Background {
         // setTimeout(() => {
         //   Pixi.containerBgBlood.removeChild(this.sprite); // arbitrarily after first render
         // }, 500);
-        console.log("background created");
         resolve();
       });
   }

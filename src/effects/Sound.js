@@ -34,7 +34,6 @@ class Sound {
             sound.volume = volume;
             this.sounds[track] = sound;
           }
-          console.log("sound created");
           resolve("Sound loaded");
         });
       });

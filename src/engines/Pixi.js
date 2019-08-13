@@ -6,6 +6,8 @@ class Pixi {
   create() {
     return new Promise(resolve => {
       Object.assign(this, PIXI);
+      this.utils.skipHello();
+
       this.sound = pixiSound;
 
       // Sack antialiasing off with renderer settings and CSS

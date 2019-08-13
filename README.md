@@ -6,11 +6,12 @@ A game made for #LOWREZJAM 2019
 
 ## Dev
 
-    npm i
-    npm start
+npm i
+npm start
 
-## Deploy
+## Deploy (for personal reference, not you guys)
 
-Deployed to [itch.io](https://entozoon.itch.io/tankblade) using [Butler](https://fasterthanlime.itch.io/butler) which is to be downloaded into `/_butler`, then wham a cheeky
+Deployed to [itch.io](https://entozoon.itch.io/tankblade) using [Butler](https://fasterthanlime.itch.io/butler) which is to be downloaded into `/_butler`, then wham a cheeky:
 
+    npm run prepreitch
     npm run itch

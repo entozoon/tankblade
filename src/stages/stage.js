@@ -5,20 +5,25 @@ import GhoulFactory from "../engines/GhoulFactory";
 import Sound from "../effects/Sound";
 import Background from "../effects/Background";
 import { centerText, scoreText } from "../lib/text";
-import { waveChange } from "../settings";
+import { waveChange, ghoulCountGameOver } from "../settings";
 
-const loop = () => {
-  console.log("stage loop");
-  Time.update();
-  // console.log("dt", Time.dt, "elapsed", Time.elapsed);
-  Hero.update(Time.dt);
-  const wave = Math.floor(Time.elapsed / waveChange) + 1;
-  // console.log("wave", wave);
-  GhoulFactory.update(Time.dt, wave);
-  Background.update(Time.dt, Time.elapsed);
+const loop = (resolve, reject) => {
+  return () => {
+    Time.update();
+    Hero.update(Time.dt);
+    const wave = Math.floor(Time.elapsed / waveChange) + 1;
+    GhoulFactory.update(Time.dt, wave);
+    Background.update(Time.dt, Time.elapsed);
 
-  Pixi.render();
-  requestAnimationFrame(loop);
+    if (wave >= 4) {
+      resolve();
+    } else if (GhoulFactory.ghouls.length >= ghoulCountGameOver) {
+      reject();
+    } else {
+      Pixi.render();
+      requestAnimationFrame(loop(resolve, reject));
+    }
+  };
 };
 
 class Stage {
@@ -27,16 +32,21 @@ class Stage {
 
     this.create = () =>
       new Promise(resolve => {
+        console.log("Creating stage", this.name);
+        Time.reset();
         Sound.music("bgm");
         centerText.text = null;
         scoreText.text = `${this.name} `;
-        this.loop();
         resolve();
       });
   }
   loop() {
-    loop();
+    // https://yeti.co/blog/cool-tricks-with-animating-using-requestanimationframe/#trick3promiseifyingnontimestampedanimations
+    return new Promise((resolve, reject) => {
+      // Pass the resolve into the loop function, to be callbacked
+      requestAnimationFrame(loop(resolve, reject));
+    });
   }
 }
-
 export const stage1 = new Stage({ name: "ROUND 1" });
+export const stage2 = new Stage({ name: "ROUND 2" });

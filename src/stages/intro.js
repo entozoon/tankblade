@@ -7,7 +7,9 @@ export const intro = () =>
     centerText.text = "TANKBLADE";
     Sound.music("intro");
     introAnimation(centerText).then(() => {
-      Sound.stop("intro");
-      resolve();
+      setTimeout(() => {
+        Sound.stop("intro");
+        resolve();
+      }, 1000);
     });
   });

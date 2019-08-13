@@ -11,9 +11,7 @@ export const introAnimation = text =>
       let id = requestAnimationFrame(animation);
       if (a >= 49) {
         cancelAnimationFrame(id);
-        setTimeout(() => {
-          resolve();
-        }, 1000);
+        resolve();
       }
       a++;
     };

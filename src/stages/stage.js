@@ -43,6 +43,8 @@ class Stage {
       new Promise(resolve => {
         Time.reset();
         Sound.music("bgm");
+        Sound.disableEffects = false;
+
         // centerText.text = null;
         // scoreText.text = `${options.title} `;
         scoreText.text = null;

@@ -11,7 +11,7 @@ export const gettingHairyPulseSpeed = 500,
       ghoulFrequency: 1000,
       survivalTime: 12000,
       ghoulCountGettingHairy: 80,
-      ghoulCountGameOver: 100
+      ghoulCountGameOver: 5 //100
     },
     {
       ghoulFrequency: 80,

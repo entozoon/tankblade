@@ -1,6 +1,7 @@
 import { setup } from "./stages/setup";
 import { intro } from "./stages/intro";
 import { stage1, stage2, stage3 } from "./stages/stage";
+import { gameOver } from "./stages/gameOver";
 import { centerText } from "./lib/text";
 
 const game = () => {
@@ -20,12 +21,11 @@ const game = () => {
         game();
       }, 2000);
     })
-    .catch(error => {
-      centerText.text = "GAME OVER";
-      console.log("Game over:", error);
+    .catch(reason => {
+      gameOver(reason);
       setTimeout(() => {
         game();
-      }, 2000);
+      }, 7800);
     });
 };
 

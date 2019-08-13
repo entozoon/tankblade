@@ -33,6 +33,46 @@ class Background {
           ) /
             gettingHairyPulseSpeed);
   }
+  darken() {
+    this.sprite.alpha = 1;
+
+    // let colorMatrix = new Pixi.ColorMatrixFilter();
+    // Pixi.containerMain.filters = [colorMatrix];
+    // colorMatrix.brightness(0.1);
+
+    const fadeTints = [
+      0xffffff,
+      0xeeeeee,
+      0xdddddd,
+      0xcccccc,
+      0xbbbbbb,
+      0xaaaaaa,
+      0x999999,
+      0x888888,
+      0x777777,
+      0x666666,
+      0x555555,
+      0x444444,
+      0x333333,
+      0x222222,
+      0x111111,
+      0x000000
+    ];
+    let i = 0;
+    const cheekyFade = setInterval(() => {
+      this.sprite.tint = fadeTints[i];
+      console.log(i);
+      Pixi.render();
+      i++;
+      if (i >= fadeTints.length) clearInterval(cheekyFade);
+    }, 200);
+
+    // var filter = new Pixi.ColorMatrixFilter();
+    // filter.matrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+    // stage.filters = [filter];
+    // console.log(this.sprite);
+    // this.sprite.brightness = 0.1;
+  }
   reset() {
     // Allow it to draw fully opaquely for a short amount of time
     this.sprite.alpha = 0.1; // 1 is ideal but game load fade is nice

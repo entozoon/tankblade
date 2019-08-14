@@ -1,8 +1,6 @@
 # TANKBLADE
 
-<img align="right" width="128" height="128" src="https://github.com/entozoon/tankblade/raw/master/_assets/screenshot-3.s.png">
-
-<img align="right" width="128" height="128" src="https://github.com/entozoon/tankblade/raw/master/_assets/cover.s.png">
+<img align="right" width="192" height="192" src="https://github.com/entozoon/tankblade/raw/master/_assets/cover-4-l.png">
 
 _"Ghouls! Frickin ghouls everywhere, just my luck!<br>
 Well, I best hop in this here spinning-top, blade-encrusted tank and start slashy smashin'."_

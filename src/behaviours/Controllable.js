@@ -1,9 +1,11 @@
 import Pixi from "../engines/Pixi";
 
 const getTouchPos = (canvas, e) => {
+  // Grab the scale because, the bloody transforms don't get factored in
+  const scale = Math.round(canvas.getBoundingClientRect().width / 64);
   return {
-    x: e.touches[0].clientX - canvas.getBoundingClientRect().left,
-    y: e.touches[0].clientY - canvas.getBoundingClientRect().top
+    x: (e.touches[0].clientX - canvas.getBoundingClientRect().left) / scale,
+    y: (e.touches[0].clientY - canvas.getBoundingClientRect().top) / scale
   };
 };
 const getKeyByValue = (object, value) =>

@@ -1,4 +1,5 @@
 import Pixi from "../engines/Pixi";
+
 export default class {
   constructor({ spriteSheet, adrenaline, poses }) {
     this.adrenaline = adrenaline || 0;

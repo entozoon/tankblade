@@ -1,7 +1,6 @@
 import Time from "../engines/Time";
 import Ghoul from "../entities/Ghoul";
 import Hero from "../entities/Hero";
-import { constrain } from "../lib/utilities";
 import { randomOutsidePerimeter } from "../lib/utilities";
 import Background from "../effects/Background";
 

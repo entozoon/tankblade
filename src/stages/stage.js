@@ -13,10 +13,10 @@ const loop = (resolve, reject, stage) => () => {
   GhoulFactory.update();
   Background.update();
 
-  // Survived the waves
-  // if (GhoulFactory.wave >= stage.wavesToSurvive) {
-  //   resolve();
-  // }
+  // Debug
+  console.log(GhoulFactory.ghouls.length);
+
+  // Survived this stage
   if (Time.elapsed >= stage.survivalTime) {
     resolve();
   }
@@ -106,7 +106,7 @@ export const stages = [
     ...stagesConfig[2]
   }),
   new Stage({
-    title: " ROUND 3 OF " + stagesConfig.length,
-    ...stagesConfig[4]
+    title: " ROUND 4 OF " + stagesConfig.length,
+    ...stagesConfig[3]
   })
 ];

@@ -9,7 +9,8 @@ const soundResources = {
   bounce2: "bounce2.mp3",
   bounce3: "bounce3.mp3",
   hairy: "hairy.mp3",
-  gameover: "gameover.mp3"
+  gameover: "gameover.mp3",
+  won: "won.mp3"
 };
 class Sound {
   constructor() {

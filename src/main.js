@@ -2,7 +2,7 @@ import { setup } from "./stages/setup";
 import { intro } from "./stages/intro";
 import { stages } from "./stages/stage";
 import { gameOver } from "./stages/gameOver";
-import { centerText } from "./lib/text";
+import { won } from "./stages/won";
 
 const game = () => {
   intro()
@@ -18,10 +18,10 @@ const game = () => {
     // ^ NGL I don't understand why I can't do this, but like
     // without running() it, it doesn't get its 'this' context
     .then(() => {
-      centerText.text = "YOU WON";
+      won();
       setTimeout(() => {
         game();
-      }, 2000);
+      }, 8000);
     })
     .catch(reason => {
       gameOver(reason);

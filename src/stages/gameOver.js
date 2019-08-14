@@ -1,4 +1,3 @@
-import Time from "../engines/Time";
 import Background from "../effects/Background";
 import Sound from "../effects/Sound";
 import { centerText } from "../lib/text";

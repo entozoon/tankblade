@@ -14,7 +14,7 @@ const loop = (resolve, reject, stage) => () => {
   Background.update();
 
   // Debug
-  // console.log(GhoulFactory.ghouls.length);
+  console.log(GhoulFactory.ghouls.length);
 
   // Survived this stage
   if (Time.elapsed >= stage.survivalTime) {

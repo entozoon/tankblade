@@ -28,15 +28,12 @@ export const gettingHairyPulseSpeed = 500,
     },
     {
       ghoulFrequency: 80,
-      survivalTime: 12000,
-      ghoulCountGettingHairy: 50,
-      ghoulCountGameOver: 80 // of 150
+      survivalTime: 18000,
+      ghoulCountGettingHairy: 60,
+      ghoulCountGameOver: 75 // of 150
     }
     // insane, but doable:
     // {
     //   ghoulFrequency: 50,
-    //   survivalTime: 14000,
-    //   ghoulCountGettingHairy: 80,
-    //   ghoulCountGameOver: 120
     // }
   ];

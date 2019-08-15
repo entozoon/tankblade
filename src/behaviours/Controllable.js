@@ -12,13 +12,17 @@ const getKeyByValue = (object, value) =>
   Object.keys(object).find(key => object[key] === value);
 
 const directionKeycodeFromTouchPos = ({ x, y, width, height, keyCodes }) => {
-  // Trial and error to figure out down tbh, inverting up.. then sneaky partition for left/right
+  // Must improved rewrite, with advice from https://gist.github.com/fbacall
   let keyCode = "none";
-  if (1 < (-Math.abs(x - height / 2) + height / 2) / y) keyCode = "up";
-  else if (1 >= (1 - (-Math.abs(x - height / 2) + height / 2 - height)) / y)
-    keyCode = "down";
-  else if (x > width / 2) keyCode = "right";
-  else keyCode = "left";
+  const relX = x - width / 2;
+  const relY = y - height / 2;
+
+  if (Math.abs(relY) > Math.abs(relX)) {
+    keyCode = relY < 0 ? "up" : "down";
+  } else {
+    keyCode = relX > 0 ? "right" : "left";
+  }
+
   return getKeyByValue(keyCodes, keyCode);
 };
 

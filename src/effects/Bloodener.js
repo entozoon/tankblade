@@ -3,7 +3,7 @@ import Pixi from "../engines/Pixi";
 class Bloodener {
   constructor() {
     this.create = () =>
-      new Promise(resolve => {
+      new Promise((resolve) => {
         this.particleContainer = new Pixi.ParticleContainer(1000, {
           // bloodener = this.autoDetectRenderer({
           // most are default, but just for dev..
@@ -13,7 +13,7 @@ class Bloodener {
           uvs: true,
           alpha: true,
           preserveDrawingBuffer: true,
-          clearBeforeRender: false
+          clearBeforeRender: false,
           // width: 64,
           // height: 64,
           // antialias: false,
@@ -40,7 +40,7 @@ class Bloodener {
     blood.y = posStart.y;
     blood.thrust = {
       x: r2 * 6 * Math.sign(r2 - 0.5) + r1 * 3 * (posStart.x - posEnd.x),
-      y: r1 * 6 * Math.sign(r1 - 0.5) + r2 * 3 * (posStart.y - posEnd.y)
+      y: r1 * 6 * Math.sign(r1 - 0.5) + r2 * 3 * (posStart.y - posEnd.y),
     };
     blood.tint = 0x333333 + r1 * 0x999999;
     blood.lifespan = 750 + r2 * 1250;

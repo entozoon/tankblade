@@ -11,8 +11,8 @@ class Background {
     this.gettingHairyTimeout = 0;
 
     this.create = () =>
-      new Promise(resolve => {
-        this.sprite = new Pixi.Sprite(new Pixi.Texture.from("bg.png"));
+      new Promise((resolve) => {
+        thissprite = new Pixi.Sprite(new Pixi.Texture.from("bg.png"));
         resolve();
       });
   }
